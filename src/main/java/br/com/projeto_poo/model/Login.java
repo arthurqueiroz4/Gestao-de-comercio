@@ -13,18 +13,18 @@ public class Login {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_login")
-	private Long id;
+	private Long idlogin;
 	
 	private String usuario;
 	
 	private String senha;
-
+	
 	public Long getId() {
-		return id;
+		return idlogin;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.idlogin = id;
 	}
 
 	public String getUsuario() {
