@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.projeto_poo.model.Estoque;
+import br.com.projeto_poo.model.EstoqueRepository;
 import br.com.projeto_poo.model.Login;
 import br.com.projeto_poo.model.LoginRepository;
 
@@ -24,6 +26,7 @@ import br.com.projeto_poo.model.LoginRepository;
 public class GreetingsController {
 	@Autowired
 	private LoginRepository loginrepository;
+	private EstoqueRepository estoquerepository;
 	
     /**
      *
@@ -41,13 +44,20 @@ public class GreetingsController {
         return "Eu to tentando, "+name;
     }
     
-    @PostMapping(value="/salvar")
+    @PostMapping(value="/salvarlogin")
     @ResponseBody
-    public ResponseEntity<Login> salvar(@RequestBody Login login) {
+    public ResponseEntity<Login> salvarlogin(@RequestBody Login login) {
     	
     	Login log_in = loginrepository.save(login);
     	
     	return new ResponseEntity<Login>(log_in, HttpStatus.OK);
     }
-    
+    @PostMapping(value="/salvarestoque")
+    @ResponseBody
+    public ResponseEntity<Estoque> salvarestoque(@RequestBody Estoque estoque) {
+    	
+    	Estoque est_oque = estoquerepository.save(estoque);
+    	
+    	return new ResponseEntity<Estoque>(est_oque, HttpStatus.OK);
+    }
 }

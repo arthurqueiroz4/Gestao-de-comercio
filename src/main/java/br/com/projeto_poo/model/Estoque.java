@@ -12,7 +12,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = "seq_estoque", sequenceName = "seq_estoque", allocationSize = 1, initialValue = 1)
-public class Estoque{
+public class Estoque {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -25,7 +25,7 @@ public class Estoque{
 	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_login", referencedColumnName = "idlogin")
-	private Login id_login;
+	private Login login;
 
 	public Long getId() {
 		return idestoque;
@@ -52,11 +52,11 @@ public class Estoque{
 	}
 
 	public Login getId_login() {
-		return id_login;
+		return login;
 	}
 
 	public void setId_login(Login id_login) {
-		this.id_login = id_login;
+		this.login = id_login;
 	}
 	
 	
