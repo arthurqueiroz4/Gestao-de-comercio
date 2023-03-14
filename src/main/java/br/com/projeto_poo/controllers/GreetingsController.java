@@ -35,6 +35,7 @@ public class GreetingsController {
         return "Eu to tentando, "+name;
     }
     
+    //Cadastrar usuario
     @PostMapping(value="/salvarlogin")
     @ResponseBody
     public ResponseEntity<?> salvarlogin(@RequestBody Login login) {
@@ -47,19 +48,33 @@ public class GreetingsController {
 			return new ResponseEntity<String>("USUARIO JA CADASTRADO", HttpStatus.OK);
 		}
     }
+    
+    //Buscar usuario
     @PostMapping(value = "/buscarporusuario")
     @ResponseBody
-    public ResponseEntity<List<Login>> buscarPorNome(@RequestParam String usuario){
+    public ResponseEntity<?> buscarPorNome(@RequestParam String usuario){
     	List<Login> logins = loginrepository.buscarUsuario(usuario);
-    	return new ResponseEntity<List<Login>>(logins, HttpStatus.OK);
+    	if (logins.size()!=0) {
+    		return new ResponseEntity<List<Login>>(logins, HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<String>("LOGIN NÃO ENCONTRADO", HttpStatus.OK);
+    	}
     }
+    
+    //Verificar produto
     @PostMapping(value = "/verificarproduto")
     @ResponseBody
-    public ResponseEntity<List<Estoque>> verificarProduto(@RequestParam String nomeProduto, Long idlogin){
+    public ResponseEntity<?> verificarProduto(@RequestParam String nomeProduto, Long idlogin){
     	List<Estoque> estoque = estoquerepository.buscarProduto(nomeProduto, idlogin);
-    	return new ResponseEntity<List<Estoque>>(estoque, HttpStatus.OK);
+    	if (estoque.size()!= 0) {
+    		return new ResponseEntity<List<Estoque>>(estoque, HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<String>("PRODUTO NÃO ENCOTRADO.", HttpStatus.OK);
+    	}
     }
-    @DeleteMapping(value="/apagalogin")
+    
+    //Apagar login
+    @DeleteMapping(value="/apagarlogin")
     @ResponseBody
     public ResponseEntity<String> apagaLogin(@RequestParam Long id){
     	if (id == null) {
@@ -72,12 +87,19 @@ public class GreetingsController {
     	return new ResponseEntity<String>("LOGIN DELETADO.", HttpStatus.OK);
     }
     
+    //Mostrar login
     @GetMapping(value="/mostrarlogin")
     @ResponseBody
-    public ResponseEntity<List<Login>> mostrarLogin(){
+    public ResponseEntity<?> mostrarLogin(){
     	List<Login> logins = loginrepository.findAll();
-    	return new ResponseEntity<List<Login>>(logins, HttpStatus.OK);
+    	if (logins.size()!=0) {
+    		return new ResponseEntity<List<Login>>(logins, HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<String>("LOGIN NÃO ENCONTRADO", HttpStatus.OK);
+    	}
     }
+    
+    //Salvar produto
     @PostMapping(value="/salvarproduto")
     @ResponseBody
     public ResponseEntity<?> salvarestoque(@RequestBody Estoque estoque) {
@@ -92,6 +114,8 @@ public class GreetingsController {
     		return new ResponseEntity<String>("LOGIN NÃO CADASTRADO", HttpStatus.OK);
     	}
     }
+    
+    //Deletar produto
     @DeleteMapping(value="/deletarproduto")
     @ResponseBody
     public ResponseEntity<String> apagaProduto(@RequestParam Long id){
@@ -104,6 +128,8 @@ public class GreetingsController {
     	estoquerepository.deleteById(id);
     	return new ResponseEntity<String>("PRODUTO DELETADO.", HttpStatus.OK);
     }
+    
+    //Mostrar produtos
     @GetMapping(value="/mostrarprodutos")
     @ResponseBody
     public ResponseEntity<List<Estoque>> mostrarProdutos(){
@@ -111,6 +137,7 @@ public class GreetingsController {
     	return new ResponseEntity<List<Estoque>>(logins, HttpStatus.OK);
     }
     
+    //Validar login
     @GetMapping(value = "/validarlogin")
     @ResponseBody
     public ResponseEntity<?> validarLogin(@RequestBody Login login) {
