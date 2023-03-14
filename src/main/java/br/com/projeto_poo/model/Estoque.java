@@ -1,38 +1,33 @@
+
 package br.com.projeto_poo.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = "seq_estoque", sequenceName = "seq_estoque", allocationSize = 1, initialValue = 1)
 public class Estoque {
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_estoque")
-	private Long idestoque;
+	private Long idEstoque;
 	
 	private String nomeProduto;
 	
 	private Double precoUnitario;
 	
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_login", referencedColumnName = "idlogin")
-	private Login login;
+	private int quantidade;
+	
+	private Long id_login;
 
-	public Long getId() {
-		return idestoque;
+	public Long getIdEstoque() {
+		return idEstoque;
 	}
 
-	public void setId(Long id) {
-		this.idestoque = id;
+	public void setIdEstoque(Long idestoque) {
+		this.idEstoque = idestoque;
 	}
 
 	public String getNomeProduto() {
@@ -51,13 +46,22 @@ public class Estoque {
 		this.precoUnitario = precoUnitario;
 	}
 
-	public Login getId_login() {
-		return login;
+	public Long getId_login() {
+		return id_login;
 	}
 
-	public void setId_login(Login id_login) {
-		this.login = id_login;
+	public void setId_login(Long id_login) {
+		this.id_login = id_login;
 	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
 	
 	
 }
