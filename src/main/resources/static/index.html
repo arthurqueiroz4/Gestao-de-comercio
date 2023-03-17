@@ -11,17 +11,17 @@
 </head>
 <body>
     <script src="index.js"></script>
-    <form action="/login" class="bg-dark formu pb-5">
+    <form  class="bg-dark formu pb-5" id="form1">
         
         <div class="content">
             <h1 class="display-3 text-light mb-4" id="title">Login</h1> 
             <div class ="form-outline mb-2 mt-2 email">
-                <input type="email" id="email" class="form-control inputs" placeholder="email" />
+                <input type="text" id="usuario" class="form-control inputs" placeholder="Usuário" />
                 
             
             <div>
                 <input id="password" type="password"  class="form-control inputs mt-3" placeholder="senha">
-                <button type="submit" onclick="pick()" class="btn btn-primary mb-4 button">Entrar</button>
+                <button type="submit" class="btn btn-primary mb-4 button">Entrar</button>
             </div>
             <div>
                 <p class="text-light">Não tem conta? <a href="/cadastro">Registre-se</a></p>
