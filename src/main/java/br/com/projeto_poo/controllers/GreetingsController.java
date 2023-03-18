@@ -138,20 +138,26 @@ public class GreetingsController {
     }
     
     //Validar login
-    @GetMapping(value = "/validarlogin")
+    @PostMapping(value = "/validarlogin")
     @ResponseBody
-    public ResponseEntity<?> validarLogin(@RequestBody Login login) {
-    	List<Login> logins= loginrepository.buscarUsuario(login.getUsuario());
-		if (logins.size() == 0)
-			return new ResponseEntity<String>("LOGIN INVÁLIDO.", HttpStatus.OK);
+	public ResponseEntity<?> validarLogin(@RequestBody Login login) {
+		List<Login> logins = loginrepository.buscarUsuario(login.getUsuario());
+		if (logins.size() == 0) {
+			System.out.println("LOGIN INVÁLIDO.");
+			logins.clear();
+			return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
+		}
 		if (logins.size() != 0) {
 			for (int i = 0; i < logins.size(); i++) {
-				if (logins.get(i).getSenha().equals(login.getSenha())) {
-					
-					return new ResponseEntity<String>("LOGIN VALIDADO.", HttpStatus.OK);
+				System.out.println(logins.get(i).getUsuario()+" "+ logins.get(i).getSenha());
+				if (logins.get(i).getUsuario().equals(login.getUsuario()) && logins.get(i).getSenha().equals(login.getSenha())) {
+					System.out.println("LOGIN VALIDADO.");
+					return new ResponseEntity<Login>(logins.get(i), HttpStatus.OK);
 				}
 			}
 		}
-		return new ResponseEntity<String>("LOGIN INVÁLIDO.", HttpStatus.OK);
-    }
+		System.out.println("LOGIN INVÁLIDO.");
+		logins.clear();
+		return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
+	}
 }

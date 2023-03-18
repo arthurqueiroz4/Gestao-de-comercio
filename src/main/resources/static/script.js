@@ -1,62 +1,31 @@
 const formu = document.getElementById("form1");
-const usuario = document.getElementById("usuario");
-const senha = document.getElementById("password");
 
-formu.addEventListener('submit', event =>{
-	//const data_password = new FormData();
-	//onst password_final = Object.fromEntries(password);
+
+formu.addEventListener('submit', event => {
     event.preventDefault();
-    const data = JSON.stringify({
-			usuario: usuario.value,
-			senha: senha.value
-		});
-	$.ajax({
-		method: "GET",
-		url: "validarlogin",
-		data: data,
-		success: function(response) {
-			alert("LOGIN FEITO COM SUCESSO.")
-		}
-	}).fail(function(xhr, status, errorThrow) {
-		alert("LOGIN NÃO ENCONTRADO\n" + xhr.responseText);
-	})
-	})
-	/*
-    fetch("validarlogin", {
-        method:"GET",
+    const formData = new FormData(formu);
+    const data = {
+        usuario: formData.get('usuario'),
+        senha: formData.get('senha')
+    };
+    console.log(data);
+    const idPromise = fetch("validarlogin", {
+        method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-			usuario: usuario.value,
-			senha: senha.value
-		})
-    }).then(resp => resp).then(data => console.log(data))
-})
-/*
-
-function validarUsuario(){
-	console.log("entrou");
-	sleep(1000);
-	const usuario = $("#form1").value();
-	const senha = $("#password").value();
-
-	$.ajax({
-		method: "GET",
-		url: "validarlogin",
-		data: JSON.stringify({
-			usuario: usuario,
-			senha: senha
-		}),
-		contentType: "application/json; charset=utf-8",
-		success: function(response) {
-			alert("LOGIN FEITO COM SUCESSO.")
+        body: JSON.stringify(data)
+    })
+    .then(resp => {
+		console.log(resp.status)
+		if (resp.status==200){
+			console.log("Login validado");
+		} else if (resp.status==406){
+			throw new Error("Login invalido");
 		}
-	}).fail(function(xhr, status, errorThrow) {
-		alert("LOGIN NÃO ENCONTRADO" + xhr.responseText);
+		return resp.json()
 	})
-}
-*/
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+
+});
