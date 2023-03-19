@@ -1,5 +1,5 @@
 const formu = document.getElementById("form1");
-
+let id_user;
 
 formu.addEventListener('submit', event => {
     event.preventDefault();
@@ -25,7 +25,8 @@ formu.addEventListener('submit', event => {
 		}
 		return resp.json()
 	})
-    .then(data => console.log(data))
+    .then(data => {
+		localStorage.setItem("id", JSON.stringify(data.idLogin))
+	})
     .catch(error => console.error(error));
-
 });
