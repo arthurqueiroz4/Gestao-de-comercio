@@ -28,24 +28,17 @@ public class GreetingsController {
 	@Autowired
 	private EstoqueRepository estoquerepository;
 	
-  
-    @GetMapping(value = "/tentando/{name}")
-    @ResponseStatus(HttpStatus.OK)
-    public String tentando(@PathVariable String name) {
-        return "Eu to tentando, "+name;
-    }
-    
     //Cadastrar usuario
-    @PostMapping(value="/salvarlogin")
+    @PostMapping(value="/cadastrar")
     @ResponseBody
-    public ResponseEntity<?> salvarlogin(@RequestBody Login login) {
+    public ResponseEntity<Login> cadastrar(@RequestBody Login login) {
     	List<Login> logins = loginrepository.buscarUsuario(login.getUsuario());
     	System.out.println(login.getUsuario()+ " "+login.getSenha());
 		if (logins.size()==0) {
-			Login log_in = loginrepository.save(login);
-			return new ResponseEntity<Login>(log_in, HttpStatus.OK);
+			loginrepository.save(login);
+			return new ResponseEntity<Login>(login, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<String>("USUARIO JA CADASTRADO", HttpStatus.OK);
+			return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
 		}
     }
     
