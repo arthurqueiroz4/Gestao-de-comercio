@@ -12,7 +12,8 @@ public interface LoginRepository extends JpaRepository<Login, Long>{
 	@Query(value = "select u from Login u where u.usuario like %?1%")
 	List<Login> buscarUsuario(String usuario);
 
-
+	@Query(value = "select u from Login u where u.cnpj like %?1%")
+	List<Login> buscarCNPJ(String usuario);
 	//@Query(value ="select u from Login u where cast(u.idLogin as TEXT) like ?1")
 	//List<Login> findAllById(String id_login);
 	
