@@ -1,0 +1,29 @@
+.background{
+    background-color: #3c5665; 
+}
+
+.content{
+    display: flex;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 2%; */
+    background-color: #ffefcd;
+}
+#title{
+    color: #3c5665;
+    font-family: 'Old Standard TT', serif;
+} 
+#button{
+    width: 50%;
+    background-color: #3c5665;
+}
+/* donau e blue fatface */
+/* color: #424530; backgroiund*/
+/* background-color: #ffefcd; content*/
+/* background-color: #3c5665; fundo azul */
