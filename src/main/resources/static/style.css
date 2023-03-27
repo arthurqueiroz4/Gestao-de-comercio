@@ -1,62 +1,30 @@
-body{
-    background-color: rgb(0, 100, 255);
+.background{
+    background-color: #3c5665; 
 }
-#login{
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    width: 30%;
-    height: 40%;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-}
-.email{
-    text-align: center;
-    justify-content: center;
-    width: 80%;
-    padding-left: 90px;
-    margin-top: 30px;
-}
-#password{
-    margin-top: 15px;
-    margin-bottom: 20px;
-}
-form{
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    /* width: 25%;
-    height: 25%; */
-    
-}
-.inputs{
-    width: 100%;
-    /* margin-left: 5%;
-    margin-right: 5%; */
-}
+
 .content{
+    display: flex;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    /* width: 50%; */
+    height: 60%;
     justify-content: center;
-    text-align: center;
+    align-items: center;
+    /* border-radius: 2%; */
+    background-color: #ffefcd;
 }
-.formu{
-    padding: 30px;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 10%;
-    /* padding-top: 130px; */
-    border-radius: 3%;
-    width: 30%;
-    height: 45%;
-    /* background-color: rgba(14,1,21,1); */
-}
-.button{
-    width: 80%;
 
-}
 #title{
-    margin-bottom: 50%;
+    color: #3c5665;
+    font-family: 'Old Standard TT', serif;
+} 
+#button{
+    width: 100%;
+    background-color: #3c5665;
 }
-
+/* donau e blue fatface */
+/* color: #424530; backgroiund*/
+/* background-color: #ffefcd; content*/
+/* background-color: #3c5665; fundo azul */
