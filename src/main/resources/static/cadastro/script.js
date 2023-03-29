@@ -21,7 +21,7 @@ formulario.addEventListener('submit', event => {
 			} else if (resp.status == 406) {
 				alert("Cadastro inválido.\nUsuário já cadastrado.");
 				throw new Error("Cadastro inválido");
-			} else if (resp.status == 409){
+			} else if (resp.status == 400){
 				alert("Cadastro inválido.\nCNPJ inválido => Deve conter exatamente 14 números.");
 				throw new Error("Cadastro inválido");
 			}
