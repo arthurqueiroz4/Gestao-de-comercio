@@ -17,10 +17,13 @@ formulario.addEventListener('submit', event => {
 		.then(resp => {
 			console.log(resp.status)
 			if (resp.status == 200) {
-				alert("Cadastro validado");
+				alert("Cadastro validado.");
 			} else if (resp.status == 406) {
-				alert("Cadastro invalido\nUsuário já cadastrado");
-				throw new Error("Cadastro invalido");
+				alert("Cadastro inválido.\nUsuário já cadastrado.");
+				throw new Error("Cadastro inválido");
+			} else if (resp.status == 409){
+				alert("Cadastro inválido.\nCNPJ inválido => Deve conter exatamente 14 números.");
+				throw new Error("Cadastro inválido");
 			}
 			return resp.json()
 		})
