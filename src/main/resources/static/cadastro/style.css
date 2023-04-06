@@ -8,20 +8,19 @@
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%);
-    /* width: 50%; */
+    width: 50%;
     height: 60%;
     justify-content: center;
     align-items: center;
     /* border-radius: 2%; */
     background-color: #ffefcd;
 }
-
 #title{
     color: #3c5665;
     font-family: 'Old Standard TT', serif;
 } 
 #button{
-    width: 100%;
+    width: 50%;
     background-color: #3c5665;
 }
 /* donau e blue fatface */

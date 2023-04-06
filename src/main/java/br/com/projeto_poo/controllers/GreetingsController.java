@@ -1,6 +1,7 @@
 package br.com.projeto_poo.controllers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,24 +29,21 @@ public class GreetingsController {
 	@Autowired
 	private EstoqueRepository estoquerepository;
 	
-  
-    @GetMapping(value = "/tentando/{name}")
-    @ResponseStatus(HttpStatus.OK)
-    public String tentando(@PathVariable String name) {
-        return "Eu to tentando, "+name;
-    }
-    
     //Cadastrar usuario
-    @PostMapping(value="/salvarlogin")
+    @PostMapping(value="/cadastrar")
     @ResponseBody
-    public ResponseEntity<?> salvarlogin(@RequestBody Login login) {
+    public ResponseEntity<Login> cadastrar(@RequestBody Login login) {
     	List<Login> logins = loginrepository.buscarUsuario(login.getUsuario());
     	System.out.println(login.getUsuario()+ " "+login.getSenha());
 		if (logins.size()==0) {
-			Login log_in = loginrepository.save(login);
-			return new ResponseEntity<Login>(log_in, HttpStatus.OK);
+			if (login.getCnpj().length()==14) {
+				loginrepository.save(login);
+				return new ResponseEntity<Login>(login, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
+			}
 		}else {
-			return new ResponseEntity<String>("USUARIO JA CADASTRADO", HttpStatus.OK);
+			return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
 		}
     }
     
@@ -160,4 +158,24 @@ public class GreetingsController {
 		logins.clear();
 		return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
 	}
+
+    //Recuperar senha
+    @PostMapping(value="/recuperarsenha")
+    @ResponseBody
+    public ResponseEntity<?> recuperarSenha(@RequestBody Login login){
+    	if (login.getCnpj().length()!=14) {
+    		return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
+    	}
+    	System.out.println(login.getCnpj());
+    	List<Login> logins = loginrepository.buscarCNPJ(login.getCnpj());
+    	for(int i=0; i<logins.size();i++) {
+    		System.out.println(logins.get(i).getCnpj());
+    		if (logins.get(i).getUsuario().equals(login.getUsuario())) {
+    			logins.get(i).setSenha(login.getSenha());
+    			loginrepository.save(logins.get(i));
+    			return new ResponseEntity<Login>(logins.get(i), HttpStatus.OK);
+    		}
+    	}
+    	return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
+    }
 }
