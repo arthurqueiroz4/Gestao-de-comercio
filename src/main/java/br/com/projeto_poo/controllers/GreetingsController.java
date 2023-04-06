@@ -30,7 +30,7 @@ public class GreetingsController {
 	private EstoqueRepository estoquerepository;
 	
     //Cadastrar usuario
-    @PostMapping(value="/cadastrar")
+    @PostMapping(value="/cadastro/cadastrar")
     @ResponseBody
     public ResponseEntity<Login> cadastrar(@RequestBody Login login) {
     	List<Login> logins = loginrepository.buscarUsuario(login.getUsuario());
@@ -40,7 +40,7 @@ public class GreetingsController {
 				loginrepository.save(login);
 				return new ResponseEntity<Login>(login, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<Login>(login, HttpStatus.BAD_REQUEST);
 			}
 		}else {
 			return new ResponseEntity<Login>(login, HttpStatus.NOT_ACCEPTABLE);
