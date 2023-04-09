@@ -1,11 +1,7 @@
 package br.com.domain.entity;
 
-import javafx.beans.binding.DoubleExpression;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import lombok.Data;
 import javax.persistence.*;
 
 @Entity
