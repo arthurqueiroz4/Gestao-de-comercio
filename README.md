@@ -48,17 +48,17 @@
   
  - Cadastro de usuario: (POST - /api/usuarios)
 
-  - Funcionalidade: ao criar um produto com um código de barras que já existe, é retornado uma exception com código 400.
+   - Funcionalidade: ao criar um produto com um código de barras que já existe, é retornado uma exception com código 400.
 
-  - Corpo do json:
-    - ```json
-            {
-              "login":"java",
-              "cnpj":"0000000"
-              "senha":"123",
-              "admin":false
-            }
-      ```
+    - Corpo do json:
+        - ```json
+                {
+                  "login":"java",
+                  "cnpj":"0000000"
+                  "senha":"123",
+                  "admin":false
+                }
+          ```
 
   - Retorno: ```201 - Created```
 
