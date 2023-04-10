@@ -12,5 +12,10 @@ import java.util.Optional;
 
 public interface EstoqueService {
     Optional<EstoqueRetornoDTO> create(EstoqueDTO estoque);
+
+    Optional<EstoqueDTO> updateEstoque(EstoqueDTO dto);
+    List<Estoque> listarPeloNome(String login);
+
+    void deleteByName(String login);
     //List<Estoque> updateQuantidade(AtualizaQuantidadeDTO quantidadeDTO);
 }

@@ -1,6 +1,6 @@
 package br.com.service.impl;
 
-import br.com.domain.dto.UsuarioDTO;
+import br.com.domain.dto.MercadoDTO;
 import br.com.domain.entity.Mercado;
 import br.com.domain.repository.MercadoRepository;
 import br.com.service.MercadoService;
@@ -20,11 +20,11 @@ public class MercadoServiceImpl implements MercadoService {
     private MercadoRepository repository;
     @Override
     @Transactional
-    public Optional<UsuarioDTO> save(Mercado mercado){
+    public Optional<MercadoDTO> save(Mercado mercado){
         boolean exists = repository.findByLogin(mercado.getLogin()).isPresent();
         if (!exists){
             repository.save(mercado);
-            return Optional.of(UsuarioDTO
+            return Optional.of(MercadoDTO
                     .builder()
                     .admin(mercado.isAdmin())
                     .login(mercado.getLogin())

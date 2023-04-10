@@ -1,13 +1,17 @@
 package br.com.domain.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Estoque {
 
     @Id
@@ -19,7 +23,7 @@ public class Estoque {
     @ManyToOne
     private Produto produto;
 
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_mercado")
     @OneToOne
     private Mercado mercado;
 

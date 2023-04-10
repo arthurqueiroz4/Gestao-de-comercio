@@ -1,6 +1,6 @@
 package br.com.rest.controller;
 
-import br.com.domain.dto.UsuarioDTO;
+import br.com.domain.dto.MercadoDTO;
 import br.com.domain.entity.Mercado;
 import br.com.service.MercadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +17,13 @@ public class MercadoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UsuarioDTO save(@RequestBody Mercado mercado){
+    public MercadoDTO save(@RequestBody Mercado mercado){
         return service.save(mercado).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já cadastrado."));
     }
     @GetMapping
-    public UsuarioDTO getByName(@RequestBody Mercado user){
+    public MercadoDTO getByName(@RequestBody Mercado user){
         Mercado mercadoEncontrado = service.getByName(user.getLogin());
-        return UsuarioDTO.builder().login(user.getLogin()).admin(user.isAdmin()).build();
+        return MercadoDTO.builder().login(user.getLogin()).admin(user.isAdmin()).build();
     }
 
     @DeleteMapping("{login}")

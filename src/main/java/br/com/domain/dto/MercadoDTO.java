@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class UsuarioDTO {
+public class MercadoDTO {
     private String login;
     private boolean admin;
 }
