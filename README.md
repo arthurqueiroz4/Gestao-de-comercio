@@ -29,7 +29,7 @@
           "descricao":"Biscoito "
           }
       ```
-  - Retorno: ```200 - OK````.
+  - Retorno: ```200 - OK```.
 
 - Atualização do nome do produto: (PATCH - /api/produtos/nomeProduto)
   - Corpo do json:
