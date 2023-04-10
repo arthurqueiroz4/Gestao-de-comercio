@@ -8,6 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class AtualizaQuantidadeDTO {
+    private Integer id_Login;
     private String codigoBarras;
     private Integer NovaQuantidade;
 }

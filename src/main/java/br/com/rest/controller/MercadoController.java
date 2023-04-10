@@ -1,8 +1,8 @@
 package br.com.rest.controller;
 
 import br.com.domain.dto.UsuarioDTO;
-import br.com.domain.entity.Usuario;
-import br.com.service.UsuarioService;
+import br.com.domain.entity.Mercado;
+import br.com.service.MercadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,19 +10,19 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/usuarios")
-public class UsuarioController {
+public class MercadoController {
 
     @Autowired
-    private UsuarioService service;
+    private MercadoService service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UsuarioDTO save(@RequestBody Usuario usuario){
-        return service.save(usuario).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já cadastrado."));
+    public UsuarioDTO save(@RequestBody Mercado mercado){
+        return service.save(mercado).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já cadastrado."));
     }
     @GetMapping
-    public UsuarioDTO getByName(@RequestBody Usuario user){
-        Usuario usuarioEncontrado = service.getByName(user.getLogin());
+    public UsuarioDTO getByName(@RequestBody Mercado user){
+        Mercado mercadoEncontrado = service.getByName(user.getLogin());
         return UsuarioDTO.builder().login(user.getLogin()).admin(user.isAdmin()).build();
     }
 
@@ -35,7 +35,7 @@ public class UsuarioController {
 
     @PatchMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updatePassword(@RequestBody Usuario usuario){
-        service.resetPassword(usuario);
+    public void updatePassword(@RequestBody Mercado mercado){
+        service.resetPassword(mercado);
     }
 }

@@ -2,12 +2,12 @@ package br.com.domain.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "mercado")
 @Data
-public class Usuario {
+public class Mercado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,4 +24,5 @@ public class Usuario {
 
     @Column
     private String cnpj;
+
 }

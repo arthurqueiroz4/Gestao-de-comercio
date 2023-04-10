@@ -35,23 +35,21 @@ public class ProdutoController {
                     ProdutoDTO
                             .builder()
                             .decricao(produtoEncontrado.getDescricao())
-                            .preco(produtoEncontrado.getPrecoUnitario())
                             .codig_barras((produtoEncontrado.getCod_barras()))
-                            .quantidade(produtoEncontrado.getQuantidade())
                             .build()
             );
         }
         return dtos;
     }
 
-    @PatchMapping
-    @RequestMapping("quantidade")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateQuantidade(@RequestBody AtualizaQuantidadeDTO quantidade){
-        Produto produtoEncontrado = service.getByCode(quantidade.getCodigoBarras());
-        produtoEncontrado.setQuantidade(produtoEncontrado.getQuantidade()+quantidade.getNovaQuantidade());
-        service.save(produtoEncontrado);
-    }
+//    @PatchMapping
+//    @RequestMapping("quantidade")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void updateQuantidade(@RequestBody AtualizaQuantidadeDTO quantidade){
+//        Produto produtoEncontrado = service.getByCode(quantidade.getCodigoBarras());
+//        produtoEncontrado.setQuantidade(produtoEncontrado.getQuantidade()+quantidade.getNovaQuantidade());
+//        service.save(produtoEncontrado);
+//    }
 
     @PatchMapping
     @RequestMapping("nomeProduto")
@@ -62,13 +60,13 @@ public class ProdutoController {
         service.save(produtoEncontrado);
     }
 
-    @PatchMapping
-    @RequestMapping("preco")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updatePreco(@RequestBody AtualizaPrecoDTO atualizaPrecoDTO){
-        Produto produtoEncontrado = service.getByCode(atualizaPrecoDTO.getCodigoBarras());
-        produtoEncontrado.setPrecoUnitario(atualizaPrecoDTO.getNovoPreco());
-        service.save(produtoEncontrado);
-    }
+//    @PatchMapping
+//    @RequestMapping("preco")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void updatePreco(@RequestBody AtualizaPrecoDTO atualizaPrecoDTO){
+//        Produto produtoEncontrado = service.getByCode(atualizaPrecoDTO.getCodigoBarras());
+//        produtoEncontrado.setPrecoUnitario(atualizaPrecoDTO.getNovoPreco());
+//        service.save(produtoEncontrado);
+//    }
 
 }

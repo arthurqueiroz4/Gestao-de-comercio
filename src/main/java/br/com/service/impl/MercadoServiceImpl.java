@@ -1,9 +1,9 @@
 package br.com.service.impl;
 
 import br.com.domain.dto.UsuarioDTO;
-import br.com.domain.entity.Usuario;
-import br.com.domain.repository.UsuarioRepository;
-import br.com.service.UsuarioService;
+import br.com.domain.entity.Mercado;
+import br.com.domain.repository.MercadoRepository;
+import br.com.service.MercadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,51 +14,51 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class MercadoServiceImpl implements MercadoService {
 
     @Autowired
-    private UsuarioRepository repository;
+    private MercadoRepository repository;
     @Override
     @Transactional
-    public Optional<UsuarioDTO> save(Usuario usuario){
-        boolean exists = repository.findByLogin(usuario.getLogin()).isPresent();
+    public Optional<UsuarioDTO> save(Mercado mercado){
+        boolean exists = repository.findByLogin(mercado.getLogin()).isPresent();
         if (!exists){
-            repository.save(usuario);
+            repository.save(mercado);
             return Optional.of(UsuarioDTO
                     .builder()
-                    .admin(usuario.isAdmin())
-                    .login(usuario.getLogin())
+                    .admin(mercado.isAdmin())
+                    .login(mercado.getLogin())
                     .build());
         }
         return Optional.empty();
     }
 
     @Override
-    public Usuario resetPassword(Usuario usuario) {
-        return repository.findByCNPJ(usuario.getCnpj()).map(user -> {
-            user.setSenha(usuario.getSenha());
+    public Mercado resetPassword(Mercado mercado) {
+        return repository.findByCNPJ(mercado.getCnpj()).map(user -> {
+            user.setSenha(mercado.getSenha());
             return user;
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Override
     public void delete(String login) {
-       Usuario user = repository.findByLogin(login).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não cadastrado."));
+       Mercado user = repository.findByLogin(login).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não cadastrado."));
        repository.deleteById(user.getId());
     }
 
     @Override
-    public List<Usuario> list() {
+    public List<Mercado> list() {
         return repository.findAll();
     }
 
     @Override
-    public Usuario getByName(String name) {
-        return repository.findByLogin(name).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado"));
+    public Mercado getByName(String name) {
+        return repository.findByLogin(name).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Mercado não encontrado"));
     }
 
     @Override
-    public Usuario getById(Integer id) {
+    public Mercado getById(Integer id) {
         return repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
     }
 

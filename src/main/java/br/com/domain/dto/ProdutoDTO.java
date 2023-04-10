@@ -9,7 +9,5 @@ import lombok.Data;
 @Builder
 public class ProdutoDTO {
     private String decricao;
-    private Double preco;
     private String codig_barras;
-    private Integer quantidade;
 }

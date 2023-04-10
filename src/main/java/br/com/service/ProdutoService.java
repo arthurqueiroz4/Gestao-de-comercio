@@ -2,7 +2,6 @@ package br.com.service;
 
 import br.com.domain.dto.ProdutoDTO;
 import br.com.domain.entity.Produto;
-import br.com.domain.entity.Usuario;
 
 import java.util.List;
 import java.util.Optional;

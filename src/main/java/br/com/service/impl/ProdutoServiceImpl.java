@@ -2,7 +2,6 @@ package br.com.service.impl;
 
 import br.com.domain.dto.ProdutoDTO;
 import br.com.domain.entity.Produto;
-import br.com.domain.entity.Usuario;
 import br.com.domain.repository.ProdutoRepository;
 import br.com.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,6 @@ public class ProdutoServiceImpl implements ProdutoService {
             repository.save(produto);
             ProdutoDTO produtoCadastrado = ProdutoDTO.builder()
                     .codig_barras(produto.getCod_barras())
-                    .quantidade(produto.getQuantidade())
-                    .preco(produto.getPrecoUnitario())
                     .decricao(produto.getDescricao())
                     .build();
             Optional<ProdutoDTO> produtoOptional = Optional.of(produtoCadastrado);

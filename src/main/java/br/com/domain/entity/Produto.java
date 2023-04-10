@@ -14,9 +14,5 @@ public class Produto {
     @Column
     private String cod_barras;
     @Column
-    private Double precoUnitario;
-    @Column
     private String descricao;
-    @Column
-    private Integer quantidade;
 }
