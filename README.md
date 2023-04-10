@@ -103,3 +103,4 @@
               "precoUnitario":3.5
             }
        ```
+   - Retorno: ```201 - Created```.
