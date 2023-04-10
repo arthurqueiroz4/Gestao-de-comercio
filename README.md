@@ -1,6 +1,6 @@
 # Gestão de Comércio
 
-<h2>Documentação da API</h2>
+<h2>Documentação Back-end</h2>
 
 //descricação do projeto
 
@@ -104,3 +104,8 @@
             }
        ```
    - Retorno: ```201 - Created```.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<h4>Organizaçao e relação das tabelas no banco de dados</h4>
+<img src="https://user-images.githubusercontent.com/110779984/230939378-070fee41-1ddc-46bf-ba80-f5169aa99c40.png">
+
