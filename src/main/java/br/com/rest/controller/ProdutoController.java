@@ -58,7 +58,7 @@ public class ProdutoController {
     @PatchMapping
     @RequestMapping("nomeProduto")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateNomeProduto(@RequestBody AtualizaNomeDTO atualizaNomeDTO){
+    public void updateNomeProduto(@RequestBody @Valid AtualizaNomeDTO atualizaNomeDTO){
         Produto produtoEncontrado = service.getByCode(atualizaNomeDTO.getCodigoBarras());
         produtoEncontrado.setDescricao(atualizaNomeDTO.getNovoNome());
         service.save(produtoEncontrado);

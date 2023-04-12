@@ -35,8 +35,9 @@ public class MercadoServiceImpl implements MercadoService {
 
     @Override
     public Mercado resetPassword(Mercado mercado) {
-        return repository.findByCNPJ(mercado.getCnpj()).map(user -> {
+        return repository.findByLogin(mercado.getLogin()).map(user -> {
             user.setSenha(mercado.getSenha());
+            user = repository.save(user);
             return user;
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }

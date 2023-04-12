@@ -2,6 +2,7 @@ package br.com.rest.controller;
 
 import br.com.domain.dto.*;
 import br.com.domain.entity.Estoque;
+import br.com.exception.RegraNegocioException;
 import br.com.service.EstoqueService;
 import br.com.service.impl.EstoqueServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,10 @@ public class EstoqueController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public EstoqueDTO updateEstoque(@RequestBody EstoqueDTO dto){
+    public EstoqueDTO updateEstoque(@RequestBody @Valid EstoquePutDTO dto){
+        if (dto.getQuantidade()==null && dto.getPrecoUnitario()==null){
+            throw new RegraNegocioException("O campo quantidade e precoUnitario não podem ser ambos null.");
+        }
         return service.updateEstoque(dto)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Mercado ou produto não cadastrado"));
@@ -52,7 +56,7 @@ public class EstoqueController {
     }
 
     @DeleteMapping
-    public void deleteByName(@RequestBody DeleteEstoqueDTO dto){
+    public void deleteByName(@RequestBody @Valid DeleteEstoqueDTO dto){
         System.out.println(dto.getLogin());
         service.deleteByName(dto.getLogin());
     }

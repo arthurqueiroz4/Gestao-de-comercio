@@ -24,7 +24,7 @@ public class MercadoController {
         return service.save(mercado).orElseThrow(()-> new RegraNegocioException("Mercado já cadastrado."));
     }
     @GetMapping
-    public MercadoDTO getByName(@RequestBody @Valid Mercado user){
+    public MercadoDTO getByName(@RequestBody @Valid MercadoDTO user){
         Mercado mercadoEncontrado = service.getByName(user.getLogin());
         return MercadoDTO.builder().login(user.getLogin()).admin(user.isAdmin()).build();
     }
@@ -38,7 +38,7 @@ public class MercadoController {
 
     @PatchMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updatePassword(@RequestBody Mercado mercado){
+    public void updatePassword(@RequestBody @Valid Mercado mercado){
         service.resetPassword(mercado);
     }
 
