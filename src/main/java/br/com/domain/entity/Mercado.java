@@ -1,7 +1,11 @@
 package br.com.domain.entity;
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -14,15 +18,18 @@ public class Mercado {
     private Integer id;
 
     @Column(name = "login")
+    @NotEmpty(message = "Campo login inválido.")
     private String login;
 
     @Column(name = "senha")
+    @NotEmpty(message = "Campo senha inválido.")
     private String senha;
 
     @Column
     private boolean admin;
 
-    @Column
+    @Column@NotEmpty(message = "Campo CNPJ inválido.")
+    @CNPJ(message = "Digite um CNPJ válido.")
     private String cnpj;
 
 }

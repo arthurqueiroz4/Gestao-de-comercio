@@ -1,7 +1,7 @@
 package br.com.service.impl;
 
-import br.com.domain.dto.AtualizaQuantidadeDTO;
 import br.com.domain.dto.EstoqueDTO;
+import br.com.domain.dto.EstoquePutDTO;
 import br.com.domain.dto.EstoqueRetornoDTO;
 import br.com.domain.entity.Estoque;
 import br.com.domain.entity.Mercado;
@@ -10,7 +10,6 @@ import br.com.domain.repository.EstoqueRepository;
 import br.com.domain.repository.MercadoRepository;
 import br.com.domain.repository.ProdutoRepository;
 import br.com.service.EstoqueService;
-import br.com.service.MercadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -60,8 +59,9 @@ public class EstoqueServiceImpl implements EstoqueService {
 
     }
 
+
     @Override
-    public Optional<EstoqueDTO> updateEstoque(EstoqueDTO dto) {
+    public Optional<EstoqueDTO> updateEstoque(EstoquePutDTO dto) {
         Mercado mercado = repositoryMercado.findByLogin(dto.getNomeMercado()).orElse(null);
         Produto produto = repositoryProduto.encontrarPeloCodigoBarra(dto.getCodigoBarras()).orElse(null);
         if (mercado != null && produto != null) {
@@ -103,6 +103,7 @@ public class EstoqueServiceImpl implements EstoqueService {
                 , "O "+login+" não possui estoque."))
         );
     }
+
 }
 
 //    @Override
