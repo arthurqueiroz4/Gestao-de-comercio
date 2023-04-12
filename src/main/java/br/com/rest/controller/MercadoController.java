@@ -2,11 +2,14 @@ package br.com.rest.controller;
 
 import br.com.domain.dto.MercadoDTO;
 import br.com.domain.entity.Mercado;
+import br.com.exception.RegraNegocioException;
 import br.com.service.MercadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -17,11 +20,19 @@ public class MercadoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MercadoDTO save(@RequestBody Mercado mercado){
-        return service.save(mercado).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já cadastrado."));
+    public MercadoDTO save(@RequestBody @Valid Mercado mercado){
+        if (mercado.getLogin()==null || mercado.getLogin().isBlank()){
+            throw new RegraNegocioException("Campo login inválido.");
+        } else if(mercado.getCnpj()==null || mercado.getCnpj().isBlank()){
+            throw new RegraNegocioException("Campo CNPJ inválido.");
+        } else if(mercado.getSenha()==null || mercado.getSenha().isBlank()){
+            throw new RegraNegocioException("Campo senha inválido");
+        }else{
+            return service.save(mercado).orElseThrow(()-> new RegraNegocioException("Mercado já cadastrado."));
+        }
     }
     @GetMapping
-    public MercadoDTO getByName(@RequestBody Mercado user){
+    public MercadoDTO getByName(@RequestBody @Valid Mercado user){
         Mercado mercadoEncontrado = service.getByName(user.getLogin());
         return MercadoDTO.builder().login(user.getLogin()).admin(user.isAdmin()).build();
     }
@@ -38,4 +49,6 @@ public class MercadoController {
     public void updatePassword(@RequestBody Mercado mercado){
         service.resetPassword(mercado);
     }
+
+
 }

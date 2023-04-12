@@ -3,6 +3,8 @@ package br.com.domain.entity;
 
 import lombok.Data;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
