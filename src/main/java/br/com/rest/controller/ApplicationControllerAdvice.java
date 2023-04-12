@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
     @ExceptionHandler(RegraNegocioException.class)
@@ -16,5 +19,14 @@ public class ApplicationControllerAdvice {
         String erro = ex.getMessage();
         return new ApiErrors(erro);
 
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors haandleMethodNotValidException(MethodArgumentNotValidException ex){
+        List<String> erros = ex.getBindingResult().getAllErrors()
+                .stream().map(erro -> erro.getDefaultMessage())
+                .collect(Collectors.toList());
+        return new ApiErrors(erros);
     }
 }

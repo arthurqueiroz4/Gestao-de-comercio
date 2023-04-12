@@ -5,14 +5,17 @@ import br.com.domain.dto.AtualizaPrecoDTO;
 import br.com.domain.dto.ProdutoDTO;
 import br.com.domain.dto.AtualizaQuantidadeDTO;
 import br.com.domain.entity.Produto;
+import br.com.exception.RegraNegocioException;
 import br.com.service.impl.ProdutoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -22,8 +25,9 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProdutoDTO save(@RequestBody Produto produto){
+    public ProdutoDTO save(@RequestBody @Valid Produto produto){
         return service.save(produto).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Codigo de barras ja cadastrado"));
+
     }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

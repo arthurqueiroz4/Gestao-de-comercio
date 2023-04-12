@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class EstoqueController {
     private EstoqueServiceImpl service;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public EstoqueRetornoDTO created(@RequestBody EstoqueDTO estoque){
+    public EstoqueRetornoDTO created(@RequestBody @Valid EstoqueDTO estoque){
         return service.create(estoque)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já cadastrado"));
     }

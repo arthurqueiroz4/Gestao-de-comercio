@@ -21,15 +21,7 @@ public class MercadoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MercadoDTO save(@RequestBody @Valid Mercado mercado){
-        if (mercado.getLogin()==null || mercado.getLogin().isBlank()){
-            throw new RegraNegocioException("Campo login inválido.");
-        } else if(mercado.getCnpj()==null || mercado.getCnpj().isBlank()){
-            throw new RegraNegocioException("Campo CNPJ inválido.");
-        } else if(mercado.getSenha()==null || mercado.getSenha().isBlank()){
-            throw new RegraNegocioException("Campo senha inválido");
-        }else{
-            return service.save(mercado).orElseThrow(()-> new RegraNegocioException("Mercado já cadastrado."));
-        }
+        return service.save(mercado).orElseThrow(()-> new RegraNegocioException("Mercado já cadastrado."));
     }
     @GetMapping
     public MercadoDTO getByName(@RequestBody @Valid Mercado user){
