@@ -1,6 +1,7 @@
 package br.com.rest.controller;
 
-import br.com.exception.RegraNegocioException;
+import br.com.exception.BadRequestException;
+import br.com.exception.NotFoundException;
 import br.com.rest.ApiErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,13 +14,13 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
-    @ExceptionHandler(RegraNegocioException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiErrors handleException(RegraNegocioException ex){
-        String erro = ex.getMessage();
-        return new ApiErrors(erro);
-
-    }
+//    @ExceptionHandler(RegraNegocioException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public ApiErrors handleException(RegraNegocioException ex){
+//        String erro = ex.getMessage();
+//        return new ApiErrors(erro);
+//
+//    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -28,5 +29,17 @@ public class ApplicationControllerAdvice {
                 .stream().map(erro -> erro.getDefaultMessage())
                 .collect(Collectors.toList());
         return new ApiErrors(erros);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrors handleNotFoundException(NotFoundException ex){
+        return new ApiErrors(ex.getMessage());
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleBadRequestException(BadRequestException ex){
+        return new ApiErrors(ex.getMessage());
     }
 }

@@ -3,6 +3,7 @@ package br.com.service.impl;
 import br.com.domain.dto.MercadoDTO;
 import br.com.domain.entity.Mercado;
 import br.com.domain.repository.MercadoRepository;
+import br.com.exception.NotFoundException;
 import br.com.service.MercadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,12 +40,12 @@ public class MercadoServiceImpl implements MercadoService {
             user.setSenha(mercado.getSenha());
             user = repository.save(user);
             return user;
-        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        }).orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
     }
 
     @Override
     public void delete(String login) {
-       Mercado user = repository.findByLogin(login).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não cadastrado."));
+       Mercado user = repository.findByLogin(login).orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
        repository.deleteById(user.getId());
     }
 
@@ -55,12 +56,12 @@ public class MercadoServiceImpl implements MercadoService {
 
     @Override
     public Mercado getByName(String name) {
-        return repository.findByLogin(name).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Mercado não encontrado"));
+        return repository.findByLogin(name).orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
     }
 
     @Override
     public Mercado getById(Integer id) {
-        return repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+        return repository.findById(id).orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
     }
 
 

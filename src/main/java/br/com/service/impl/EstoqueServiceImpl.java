@@ -9,12 +9,14 @@ import br.com.domain.entity.Produto;
 import br.com.domain.repository.EstoqueRepository;
 import br.com.domain.repository.MercadoRepository;
 import br.com.domain.repository.ProdutoRepository;
+import br.com.exception.NotFoundException;
 import br.com.service.EstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +32,18 @@ public class EstoqueServiceImpl implements EstoqueService {
 
     @Override
     public Optional<EstoqueRetornoDTO> create(EstoqueDTO estoque) {
-
         Mercado mercado = repositoryMercado.findByLogin(estoque.getNomeMercado()).orElse(null);
         Produto produto = repositoryProduto.encontrarPeloCodigoBarra(estoque.getCodigoBarras()).orElse(null);
+        if (mercado==null && produto==null){
+            throw new NotFoundException("Mercado e Produto não encontrados");
+        }
+        if (mercado==null){
+            throw new NotFoundException("Mercado não encontrado.");
+        }
+        if (produto==null){
+            throw new NotFoundException("Produto não encontrado.");
+        }
+
         System.out.println(mercado + " " + produto);
         boolean exists = repositoryEstoque.existeEstoqueCadatrado(mercado.getId(), produto.getId());
         if (!exists) {
