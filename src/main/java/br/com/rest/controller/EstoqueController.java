@@ -2,8 +2,8 @@ package br.com.rest.controller;
 
 import br.com.domain.dto.*;
 import br.com.domain.entity.Estoque;
-import br.com.exception.RegraNegocioException;
-import br.com.service.EstoqueService;
+import br.com.exception.BadRequestException;
+import br.com.exception.NotFoundException;
 import br.com.service.impl.EstoqueServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,14 +24,14 @@ public class EstoqueController {
     @ResponseStatus(HttpStatus.CREATED)
     public EstoqueRetornoDTO created(@RequestBody @Valid EstoqueDTO estoque){
         return service.create(estoque)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já cadastrado"));
+                .orElseThrow(()-> new BadRequestException("Estoque já cadastrado"));
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public EstoqueDTO updateEstoque(@RequestBody @Valid EstoquePutDTO dto){
         if (dto.getQuantidade()==null && dto.getPrecoUnitario()==null){
-            throw new RegraNegocioException("O campo quantidade e precoUnitario não podem ser ambos null.");
+            throw new NotFoundException("O campo quantidade e precoUnitario não podem ser ambos null.");
         }
         return service.updateEstoque(dto)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,

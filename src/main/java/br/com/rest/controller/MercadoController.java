@@ -2,13 +2,12 @@ package br.com.rest.controller;
 
 import br.com.domain.dto.MercadoDTO;
 import br.com.domain.entity.Mercado;
-import br.com.exception.RegraNegocioException;
+import br.com.exception.BadRequestException;
+import br.com.exception.NotFoundException;
 import br.com.service.MercadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
 import javax.validation.Valid;
 
 @RestController
@@ -21,7 +20,7 @@ public class MercadoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MercadoDTO save(@RequestBody @Valid Mercado mercado){
-        return service.save(mercado).orElseThrow(()-> new RegraNegocioException("Mercado já cadastrado."));
+        return service.save(mercado).orElseThrow(()-> new BadRequestException("Mercado já cadastrado."));
     }
     @GetMapping
     public MercadoDTO getByName(@RequestBody @Valid MercadoDTO user){
@@ -32,7 +31,6 @@ public class MercadoController {
     @DeleteMapping("{login}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("login") String login){
-        System.out.println(login);
         service.delete(login);
     }
 
