@@ -49,9 +49,6 @@ public class MercadoServiceImpl implements UserDetailsService {
 //        System.out.println(mercadoUser.getPassword());
         String senhaDecript = mercado.getSenha();
         String senhaCript = mercadoUser.getPassword();
-        System.out.println(senhaCript);
-        System.out.println(senhaDecript);
-        System.out.println(passwordEncoder.matches(senhaDecript, senhaCript));
         boolean senhasBatem = passwordEncoder.matches(senhaDecript, senhaCript);
         if (senhasBatem){
             return mercadoUser;

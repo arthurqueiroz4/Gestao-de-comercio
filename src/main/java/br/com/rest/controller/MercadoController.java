@@ -35,17 +35,13 @@ public class MercadoController {
     public MercadoDTO save(@RequestBody @Valid Mercado mercado){
 
         String senhaEncrip = passwordEncoder.encode(mercado.getSenha());
-        System.out.println(mercado.getSenha());
-        System.out.println(senhaEncrip);
         mercado.setSenha(senhaEncrip);
-        System.out.println(passwordEncoder.matches(mercado.getSenha(), senhaEncrip));
         return service.save(mercado).orElseThrow(()-> new BadRequestException("Mercado já cadastrado."));
     }
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestBody Mercado mercado){
         Mercado mercadoEncontrado = service.getByName(mercado.getLogin());
-        System.out.println(mercadoEncontrado);
         service.delete(mercadoEncontrado);
     }
 
