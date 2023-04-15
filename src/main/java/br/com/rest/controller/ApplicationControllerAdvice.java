@@ -1,7 +1,9 @@
 package br.com.rest.controller;
 
 import br.com.exception.BadRequestException;
+import br.com.exception.DeleteInvalidoException;
 import br.com.exception.NotFoundException;
+import br.com.exception.SenhaInvalidaException;
 import br.com.rest.ApiErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -40,6 +42,17 @@ public class ApplicationControllerAdvice {
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiErrors handleBadRequestException(BadRequestException ex){
+        return new ApiErrors(ex.getMessage());
+    }
+
+    @ExceptionHandler(DeleteInvalidoException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ApiErrors handleDeleteInvalidoException(DeleteInvalidoException ex){
+        return new ApiErrors(ex.getMessage());
+    }
+    @ExceptionHandler(SenhaInvalidaException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handSenhaInvalidaException(SenhaInvalidaException ex){
         return new ApiErrors(ex.getMessage());
     }
 }

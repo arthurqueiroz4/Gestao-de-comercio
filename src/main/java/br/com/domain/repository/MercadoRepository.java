@@ -14,5 +14,4 @@ public interface MercadoRepository extends JpaRepository<Mercado, Integer> {
     @Query(value = "select u from Mercado u where u.cnpj = :cnpj")
     Optional<Mercado> findByCNPJ(String cnpj);
 
-//    Optional<Mercado> findByLogin(String login);
 }

@@ -17,6 +17,11 @@ public interface EstoqueRepository extends JpaRepository<Estoque, Integer> {
             "WHERE e.id_mercado = :id_mercado AND e.id_produto = :id_produto", nativeQuery = true)
     boolean existeEstoqueCadatrado(Integer id_mercado, Integer id_produto);
 
+    @Query(value = "SELECT CASE WHEN COUNT(e) > 0 THEN TRUE ELSE FALSE END "+
+            "FROM Estoque e "+
+            "WHERE e.id_mercado = :id_mercado", nativeQuery = true)
+    boolean existeEstoquePeloMercado(Integer id_mercado);
+
     @Query(value = "SELECT e FROM Estoque e WHERE e.mercado.id = ?1 " +
             "AND e.produto.id = ?2")
     Optional<Estoque> buscarEstoque(Integer id_mercado, Integer id_produto);
