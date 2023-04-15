@@ -1,6 +1,9 @@
 package br.com.domain.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
@@ -9,6 +12,9 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "mercado")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Mercado {
 
     @Id
