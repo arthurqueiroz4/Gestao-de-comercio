@@ -43,6 +43,7 @@
 
 
 - Retorno: ```204 - No Content```.
+
   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
   <h4> MERCADO - Documentação da api:</h4>
 
@@ -62,6 +63,18 @@
 
 - Retorno: ```201 - Created```
 
+- Autenticação de Mercado: (POST - /api/usuarios/auth)
+
+    - Funcionalidade: Recebe um usuario e uma senha e retorna o login e o Token JWT.
+    
+    - Corpo do json:
+        - ```json
+                {
+                   "login":"java",
+                   "senha":"123"
+                }
+          ```
+
 - Busca por usuário: (GET - /api/usuarios)
     - Funcionalidade: retorna um json com o login e o admin.
 
@@ -74,9 +87,16 @@
 
     - Retorno: ```200 - OK```.
 
-- Deletar usuário: (DELETE- /api/usuarios/{login})
+- Deletar usuário: (DELETE- /api/usuarios)
 
     - Funcionamento: ao passar o login (string) pelo path, ela é deletada no banco de dados.
+    
+    - Corpo do json:
+        - ```json
+            {
+            "login":"java"
+            }
+          ```
 
     - Retorno: ```204 - No Content```
 
@@ -126,6 +146,15 @@
             }
       ```
   - Retorno ```200 - OK```.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<h4>Autorizações:</h4>
+
+- Há duas roles: ADMIN e USER.
+  - ADMIN tem acesso a todos end-points.
+  - USER não tem autorização de apagar um Mercado, mas tem acesso ao restante dos end-points.
+- Passar no Header --> *header* = Authorization e *value* = Bearer {token}.
+- Token expira em 30min desde a geração do próprio.
+    
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h4>Organizaçao e relação das tabelas no banco de dados</h4>
 <img src="https://user-images.githubusercontent.com/110779984/230939378-070fee41-1ddc-46bf-ba80-f5169aa99c40.png">
