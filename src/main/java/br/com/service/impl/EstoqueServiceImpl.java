@@ -1,14 +1,13 @@
 package br.com.service.impl;
 
-import br.com.domain.dto.EstoqueDTO;
-import br.com.domain.dto.EstoquePutDTO;
-import br.com.domain.dto.EstoqueRetornoDTO;
+import br.com.domain.dto.*;
 import br.com.domain.entity.Estoque;
 import br.com.domain.entity.Mercado;
 import br.com.domain.entity.Produto;
 import br.com.domain.repository.EstoqueRepository;
 import br.com.domain.repository.MercadoRepository;
 import br.com.domain.repository.ProdutoRepository;
+import br.com.exception.BadRequestException;
 import br.com.exception.NotFoundException;
 import br.com.service.EstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +93,36 @@ public class EstoqueServiceImpl implements EstoqueService {
                     .build());
         } else {
             return Optional.empty();
+        }
+    }
+
+    @Override
+    public void verificarVenda(VendaProdutoDTO dto) {
+        Produto produto = repositoryProduto.encontrarPeloCodigoBarra(dto.getCodigoBarras())
+                .orElseThrow(()->new NotFoundException("Código de barras "+dto.getCodigoBarras()+" não encontrado."));
+        Estoque estoque = repositoryEstoque.buscarEstoque(dto.getId_mercado(), produto.getId())
+                .orElseThrow(()->new NotFoundException("Código de barras "+dto.getCodigoBarras()+" não cadastrado no Estoque."));
+        if (estoque.getQuantidade() == 0){
+            throw new BadRequestException("Estoque de "+produto.getDescricao()+" zerado.");
+        }
+        if ((estoque.getQuantidade() - dto.getQuantidade()) < 0){
+            throw new BadRequestException("Não há "+dto.getQuantidade()+" produtos disponíveis no estoque. Existe "+estoque.getQuantidade()+" no Estoque.");
+        }
+//        estoque.setQuantidade(estoque.getQuantidade() - dto.getQuantidade());
+//        repositoryEstoque.save(estoque);
+
+    }
+
+    @Override
+    public void vender(ProdutoListDTO dto) {
+        List<ProdutoQuantidadeBarrasDTO> list = dto.getList();
+        for (ProdutoQuantidadeBarrasDTO produtoQuantidadeBarrasDTO : list) {
+            Produto produto = repositoryProduto.encontrarPeloCodigoBarra(produtoQuantidadeBarrasDTO.getCodigoBarras())
+                    .orElse(null);
+            Estoque estoque = repositoryEstoque.buscarEstoque(dto.getId_mercado(), produto.getId())
+                    .orElse(null);
+            estoque.setQuantidade(estoque.getQuantidade() - produtoQuantidadeBarrasDTO.getQuantidade());
+            repositoryEstoque.save(estoque);
         }
     }
 

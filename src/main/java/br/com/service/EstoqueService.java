@@ -1,8 +1,6 @@
 package br.com.service;
 
-import br.com.domain.dto.EstoqueDTO;
-import br.com.domain.dto.EstoquePutDTO;
-import br.com.domain.dto.EstoqueRetornoDTO;
+import br.com.domain.dto.*;
 import br.com.domain.entity.Estoque;
 
 import java.util.List;
@@ -18,4 +16,8 @@ public interface EstoqueService {
     //List<Estoque> updateQuantidade(AtualizaQuantidadeDTO quantidadeDTO);
 
     Optional<EstoqueDTO> updateEstoque(EstoquePutDTO dto);
+
+    void verificarVenda(VendaProdutoDTO dto);
+
+    void vender(ProdutoListDTO dto);
 }

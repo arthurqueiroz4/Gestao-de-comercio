@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/estoque")
 public class EstoqueController {
-    //adicionar produto(adicionar verificação), atualizar produto, apagar produto
+
     @Autowired
     private EstoqueServiceImpl service;
     @PostMapping
@@ -33,9 +33,26 @@ public class EstoqueController {
         if (dto.getQuantidade()==null && dto.getPrecoUnitario()==null){
             throw new NotFoundException("O campo quantidade e precoUnitario não podem ser ambos null.");
         }
+        // TODO: 16/04/2023  melhorar validação
         return service.updateEstoque(dto)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Mercado ou produto não cadastrado"));
+    }
+
+    // TODO: 16/04/2023 fazer endpoint de verificação de produto
+    //Codigo de barras
+    //quantidade
+    //id_mercado
+    @GetMapping("/verificar")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void verificar(@RequestBody VendaProdutoDTO dto){
+        service.verificarVenda(dto);
+    }
+
+    @GetMapping("/vender")
+    @ResponseStatus(HttpStatus.OK)
+    public void vender(@RequestBody ProdutoListDTO dto){
+        service.vender(dto);
     }
 
     @GetMapping
