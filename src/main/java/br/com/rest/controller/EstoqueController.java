@@ -45,13 +45,13 @@ public class EstoqueController {
     //id_mercado
     @GetMapping("/verificar")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void verificar(@RequestBody VendaProdutoDTO dto){
+    public void verificar(@RequestBody @Valid VendaProdutoDTO dto){
         service.verificarVenda(dto);
     }
 
     @GetMapping("/vender")
     @ResponseStatus(HttpStatus.OK)
-    public void vender(@RequestBody ProdutoListDTO dto){
+    public void vender(@RequestBody @Valid ProdutoListDTO dto){
         service.vender(dto);
     }
 

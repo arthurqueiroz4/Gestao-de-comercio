@@ -4,17 +4,20 @@ import br.com.domain.dto.*;
 import br.com.domain.entity.Estoque;
 import br.com.domain.entity.Mercado;
 import br.com.domain.entity.Produto;
+import br.com.domain.entity.Vendas;
 import br.com.domain.repository.EstoqueRepository;
 import br.com.domain.repository.MercadoRepository;
 import br.com.domain.repository.ProdutoRepository;
 import br.com.exception.BadRequestException;
 import br.com.exception.NotFoundException;
 import br.com.service.EstoqueService;
+import br.com.service.VendasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +25,13 @@ import java.util.Optional;
 public class EstoqueServiceImpl implements EstoqueService {
 
     @Autowired
-    EstoqueRepository repositoryEstoque;
+    private EstoqueRepository repositoryEstoque;
     @Autowired
-    MercadoRepository repositoryMercado;
+    private MercadoRepository repositoryMercado;
     @Autowired
-    ProdutoRepository repositoryProduto;
+    private ProdutoRepository repositoryProduto;
+    @Autowired
+    private VendasService vendasService;
 
     @Override
     public Optional<EstoqueRetornoDTO> create(EstoqueDTO estoque) {
@@ -123,6 +128,15 @@ public class EstoqueServiceImpl implements EstoqueService {
                     .orElse(null);
             estoque.setQuantidade(estoque.getQuantidade() - produtoQuantidadeBarrasDTO.getQuantidade());
             repositoryEstoque.save(estoque);
+            VendasDTO vendasDTO = VendasDTO.builder()
+                    .date(LocalDateTime.now())
+                    .descricao(produto.getDescricao())
+                    .codbarras(produto.getCod_barras())
+                    .precoUnitario(estoque.getPrecoUnitario())
+                    .id_mercado(dto.getId_mercado())
+                    .quantidade(produtoQuantidadeBarrasDTO.getQuantidade())
+                    .build();
+            vendasService.save(vendasDTO);
         }
     }
 

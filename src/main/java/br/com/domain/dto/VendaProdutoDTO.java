@@ -4,13 +4,19 @@ import br.com.domain.entity.Mercado;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 public class VendaProdutoDTO {
     //Codigo de barras
     //quantidade
     //id_mercado
+    @NotEmpty(message = "Campo codigoBarras não pode ser nulo.")
     private String codigoBarras;
+    @NotNull(message = "Campo quantidade não pode ser nulo.")
     private Integer quantidade;
+    @NotNull(message = "Campo id_mercado não pode ser nulo.")
     private Integer id_mercado;
 }

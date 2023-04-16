@@ -2,6 +2,7 @@ package br.com.service.impl;
 
 import br.com.domain.dto.MercadoDTO;
 import br.com.domain.entity.Mercado;
+import br.com.domain.repository.EstoqueRepository;
 import br.com.domain.repository.MercadoRepository;
 import br.com.exception.DeleteInvalidoException;
 import br.com.exception.NotFoundException;
@@ -27,6 +28,9 @@ public class MercadoServiceImpl implements UserDetailsService {
 
     @Autowired
     private EstoqueServiceImpl serviceEstoque;
+
+    @Autowired
+    private EstoqueRepository repositoryEstoque;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -102,7 +106,7 @@ public class MercadoServiceImpl implements UserDetailsService {
 //    }
 
     public void delete(Mercado mercado){
-        if (serviceEstoque.repositoryEstoque.existeEstoquePeloMercado(mercado.getId())){
+        if (repositoryEstoque.existeEstoquePeloMercado(mercado.getId())){
             throw new DeleteInvalidoException("Esse mercado possui estoque cadastrado, não é possível deletar Mercad com estoque.");
         }
         repository.deleteById(mercado.getId());

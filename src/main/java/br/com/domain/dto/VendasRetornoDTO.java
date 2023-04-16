@@ -1,31 +1,22 @@
-package br.com.domain.entity;
+package br.com.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
-
-@Entity
-@Table(name = "vendas")
-@Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class Vendas {
-    @Id
-    @GeneratedValue
-    private Integer id;
-
+@Data
+public class VendasRetornoDTO {
     private LocalDateTime date;
+
     private Integer quantidade;
+
     private Double precoUnitario;
+
     private String descricao;
     private String codbarras;
-    @ManyToOne
-    private Mercado mercado;
-
 }
