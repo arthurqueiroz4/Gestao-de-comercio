@@ -4,7 +4,7 @@
 
 //descricação do projeto
 
-<h4> PRODUTO - Documentação da api:</h4>
+<h4>Produto</h4>
 
 - Cadastro de produtos: (POST - /api/produtos))
 
@@ -40,12 +40,9 @@
               "codigoBarras":"123496789"
             }
           ```
-
-
-- Retorno: ```204 - No Content```.
-
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  <h4> MERCADO - Documentação da api:</h4>
+    - Retorno: ```204 - No Content```
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<h4> Mercado:</h4>
 
 - Cadastro de usuario: (POST - /api/usuarios)
 
@@ -74,6 +71,7 @@
                    "senha":"123"
                 }
           ```
+    - Retorno: ```200 - OK```
 
 - Busca por usuário: (GET - /api/usuarios)
     - Funcionalidade: retorna um json com o login e o admin.
@@ -146,6 +144,49 @@
             }
       ```
   - Retorno ```200 - OK```.
+
+- Verificar venda: (GET - /api/estoque/verificar)
+  - Funcionamento: Verifica se o produto passado existe no estoque do mercado e se tiver, é verificado se a quantidade que tem no banco é maior na quantidade passada.
+  - Corpo json:
+    - ```json
+           {
+              "codigoBarras":"7891991010086",
+               "quantidade":100,
+               "id_mercado":122
+           }
+       ```
+  - Retorno: ```204 - NO CONTENT```
+- Vender produto: (GET - /api/estoque/vender)
+  - Funcionamento: vai no estoque do mercado passado e retira a quantidade que foi passada do banco. Dentro do "list" é passado um Array de objeto que possui duas chaves: "codigoBarras" e "quantidade.
+  - Corpo json:
+    - ```json
+           {
+            "id_mercado":122,
+             "list":[
+                {
+                   "codigoBarras":"7891991010086",
+                   "quantidade":9
+                },
+                {
+                  "codigoBarras":"7891000100106",
+                  "quantidade":8
+                }
+              ]
+            }
+      ```
+  - Retorno: ```200 - OK```
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<h4>Vendas:</h4>
+
+- Listar vendas pelo Mercado: (GET - /api/vendas)
+  - Funcionamento: ao passar o nome do Mercado é retornado todas as vendas daquele mercado.
+  - Corpo json:
+    - ```json
+            {
+              "login":"JAVA25"
+            }
+      ```
+  - Retorno: ```200 - OK```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h4>Autorizações:</h4>
 

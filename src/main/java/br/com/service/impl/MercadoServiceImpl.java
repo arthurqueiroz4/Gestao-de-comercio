@@ -2,6 +2,7 @@ package br.com.service.impl;
 
 import br.com.domain.dto.MercadoDTO;
 import br.com.domain.entity.Mercado;
+import br.com.domain.repository.EstoqueRepository;
 import br.com.domain.repository.MercadoRepository;
 import br.com.exception.DeleteInvalidoException;
 import br.com.exception.NotFoundException;
@@ -28,6 +29,9 @@ public class MercadoServiceImpl implements UserDetailsService {
     @Autowired
     private EstoqueServiceImpl serviceEstoque;
 
+    @Autowired
+    private EstoqueRepository repositoryEstoque;
+
     @Override
     public UserDetails loadUserByUsername(String username) {
         Mercado mercado = repository.findByLogin(username)
@@ -45,8 +49,6 @@ public class MercadoServiceImpl implements UserDetailsService {
 
     public UserDetails autenticar(Mercado mercado){
         UserDetails mercadoUser = loadUserByUsername(mercado.getLogin());
-//        System.out.println(mercado.getLogin());
-//        System.out.println(mercadoUser.getPassword());
         String senhaDecript = mercado.getSenha();
         String senhaCript = mercadoUser.getPassword();
         boolean senhasBatem = passwordEncoder.matches(senhaDecript, senhaCript);
@@ -61,7 +63,6 @@ public class MercadoServiceImpl implements UserDetailsService {
     public Optional<MercadoDTO> save(Mercado mercado){
         boolean exists = repository.findByLogin(mercado.getLogin()).isPresent();
         if (!exists){
-            //mercado.setSenha(passwordEncoder.encode(mercado.getSenha()));
             repository.save(mercado);
             return Optional.of(MercadoDTO
                     .builder()
@@ -85,13 +86,7 @@ public class MercadoServiceImpl implements UserDetailsService {
        Mercado user = repository.findByLogin(login).orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
        repository.deleteById(user.getId());
     }
-//
-//    @Override
-//    public List<Mercado> list() {
-//        return repository.findAll();
-//    }
-//
-//    @Override
+
     public Mercado getByName(String name) {
         return repository.findByLogin(name).orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
     }
@@ -102,7 +97,7 @@ public class MercadoServiceImpl implements UserDetailsService {
 //    }
 
     public void delete(Mercado mercado){
-        if (serviceEstoque.repositoryEstoque.existeEstoquePeloMercado(mercado.getId())){
+        if (repositoryEstoque.existeEstoquePeloMercado(mercado.getId())){
             throw new DeleteInvalidoException("Esse mercado possui estoque cadastrado, não é possível deletar Mercad com estoque.");
         }
         repository.deleteById(mercado.getId());
