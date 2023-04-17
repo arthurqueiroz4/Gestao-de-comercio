@@ -61,18 +61,18 @@ public class MercadoController {
         }
     }
 
-//    @GetMapping
-//    public MercadoDTO getByName(@RequestBody @Valid MercadoDTO user){
-//        Mercado mercadoEncontrado = service.getByName(user.getLogin());
-//        return MercadoDTO.builder().login(user.getLogin()).admin(user.isAdmin()).build();
-//    }
-//
-//
-//    @PatchMapping
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void updatePassword(@RequestBody @Valid Mercado mercado){
-//        service.resetPassword(mercado);
-//    }
+    @GetMapping
+    public MercadoDTO getByName(@RequestBody @Valid MercadoDTO user){
+        Mercado mercadoEncontrado = service.getByName(user.getLogin());
+        return MercadoDTO.builder().login(user.getLogin()).admin(user.isAdmin()).build();
+    }
+
+
+    @PatchMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updatePassword(@RequestBody @Valid Mercado mercado){
+        service.resetPassword(mercado);
+    }
 
 
 }

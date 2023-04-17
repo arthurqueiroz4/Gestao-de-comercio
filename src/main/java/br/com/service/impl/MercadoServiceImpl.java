@@ -49,8 +49,6 @@ public class MercadoServiceImpl implements UserDetailsService {
 
     public UserDetails autenticar(Mercado mercado){
         UserDetails mercadoUser = loadUserByUsername(mercado.getLogin());
-//        System.out.println(mercado.getLogin());
-//        System.out.println(mercadoUser.getPassword());
         String senhaDecript = mercado.getSenha();
         String senhaCript = mercadoUser.getPassword();
         boolean senhasBatem = passwordEncoder.matches(senhaDecript, senhaCript);
@@ -65,7 +63,6 @@ public class MercadoServiceImpl implements UserDetailsService {
     public Optional<MercadoDTO> save(Mercado mercado){
         boolean exists = repository.findByLogin(mercado.getLogin()).isPresent();
         if (!exists){
-            //mercado.setSenha(passwordEncoder.encode(mercado.getSenha()));
             repository.save(mercado);
             return Optional.of(MercadoDTO
                     .builder()
@@ -89,13 +86,7 @@ public class MercadoServiceImpl implements UserDetailsService {
        Mercado user = repository.findByLogin(login).orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
        repository.deleteById(user.getId());
     }
-//
-//    @Override
-//    public List<Mercado> list() {
-//        return repository.findAll();
-//    }
-//
-//    @Override
+
     public Mercado getByName(String name) {
         return repository.findByLogin(name).orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
     }
