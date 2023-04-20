@@ -4,6 +4,7 @@
 
 //descricação do projeto
 
+
 <h4>Produto</h4>
 
 - Cadastro de produtos: (POST - /api/produtos))
@@ -47,7 +48,6 @@
 - Cadastro de usuario: (POST - /api/usuarios)
 
     - Funcionalidade: ao criar um produto com um código de barras que já existe, é retornado uma exception com código 400.
-
     - Corpo do json:
         - ```json
                 {
@@ -57,7 +57,6 @@
                   "admin":false
                 }
           ```
-
 - Retorno: ```201 - Created```
 
 - Autenticação de Mercado: (POST - /api/usuarios/auth)
