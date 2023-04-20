@@ -75,11 +75,11 @@ public class MercadoServiceImpl implements UserDetailsService {
 
 
     public Mercado resetPassword(Mercado mercado) {
-        return repository.findByLogin(mercado.getLogin()).map(user -> {
-            user.setSenha(mercado.getSenha());
-            user = repository.save(user);
-            return user;
-        }).orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
+        Mercado mercadoEncontrado = repository.findByLogin(mercado.getLogin())
+                .orElseThrow(()-> new NotFoundException("Mercado não cadastrado."));
+        mercadoEncontrado.setSenha(passwordEncoder.encode(mercado.getSenha()));
+        repository.save(mercadoEncontrado);
+        return mercadoEncontrado;
     }
 
     public void delete(String login) {

@@ -16,13 +16,6 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
-//    @ExceptionHandler(RegraNegocioException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ApiErrors handleException(RegraNegocioException ex){
-//        String erro = ex.getMessage();
-//        return new ApiErrors(erro);
-//
-//    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

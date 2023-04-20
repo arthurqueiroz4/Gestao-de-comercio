@@ -23,6 +23,6 @@ public class VendasDTO {
     private String descricao;
     @NotEmpty(message = "Campo codBarras não pode ser nulo.")
     private String codbarras;
-    @NotNull(message = "Campo id_mercado não pode ser nulo.")
-    private Integer id_mercado;
+    @NotNull(message = "Campo login não pode ser nulo.")
+    private String login;
 }

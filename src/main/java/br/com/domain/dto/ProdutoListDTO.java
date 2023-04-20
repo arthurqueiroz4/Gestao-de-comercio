@@ -12,6 +12,6 @@ import java.util.List;
 public class ProdutoListDTO {
     @NotEmpty(message = "Campo list não pode ser vazio.")
     private List<ProdutoQuantidadeBarrasDTO> list;
-    @NotNull(message = "Campo id_mercado não pode ser nulo.")
-    private Integer id_mercado;
+    @NotNull(message = "Campo login não pode ser nulo.")
+    private String login;
 }

@@ -33,16 +33,9 @@ public class EstoqueController {
         if (dto.getQuantidade()==null && dto.getPrecoUnitario()==null){
             throw new NotFoundException("O campo quantidade e precoUnitario não podem ser ambos null.");
         }
-        // TODO: 16/04/2023  melhorar validação
-        return service.updateEstoque(dto)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Mercado ou produto não cadastrado"));
+        return service.updateEstoque(dto).get();
     }
 
-    // TODO: 16/04/2023 fazer endpoint de verificação de produto
-    //Codigo de barras
-    //quantidade
-    //id_mercado
     @GetMapping("/verificar")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void verificar(@RequestBody @Valid VendaProdutoDTO dto){
@@ -77,11 +70,5 @@ public class EstoqueController {
         System.out.println(dto.getLogin());
         service.deleteByName(dto.getLogin());
     }
-
-//    @PatchMapping("quantidade")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public List<Estoque> updateQuantidade(@RequestBody AtualizaQuantidadeDTO quantidadeDTO){
-//        return service.updateQuantidade(quantidadeDTO);
-//    }
 
 }

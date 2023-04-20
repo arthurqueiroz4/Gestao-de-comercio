@@ -42,31 +42,12 @@ public class ProdutoController {
         return dtos;
     }
 
-//    @PatchMapping
-//    @RequestMapping("quantidade")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void updateQuantidade(@RequestBody AtualizaQuantidadeDTO quantidade){
-//        Produto produtoEncontrado = service.getByCode(quantidade.getCodigoBarras());
-//        produtoEncontrado.setQuantidade(produtoEncontrado.getQuantidade()+quantidade.getNovaQuantidade());
-//        service.save(produtoEncontrado);
-//    }
-
     @PatchMapping
-    @RequestMapping("nomeProduto")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateNomeProduto(@RequestBody @Valid AtualizaNomeDTO atualizaNomeDTO){
         Produto produtoEncontrado = service.getByCode(atualizaNomeDTO.getCodigoBarras());
         produtoEncontrado.setDescricao(atualizaNomeDTO.getNovoNome());
         service.save(produtoEncontrado);
     }
-
-//    @PatchMapping
-//    @RequestMapping("preco")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void updatePreco(@RequestBody AtualizaPrecoDTO atualizaPrecoDTO){
-//        Produto produtoEncontrado = service.getByCode(atualizaPrecoDTO.getCodigoBarras());
-//        produtoEncontrado.setPrecoUnitario(atualizaPrecoDTO.getNovoPreco());
-//        service.save(produtoEncontrado);
-//    }
 
 }

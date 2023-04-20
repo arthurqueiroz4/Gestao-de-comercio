@@ -39,6 +39,6 @@ public class SwaggerConfig {
     }
 
     private Contact contact(){
-        return new Contact("Arthur Queiroz", "https://github.com/arthursqueiroz4", "arthur.queiroz08@aluno.ifce.edu.br");
+        return new Contact("Arthur Queiroz", "https://github.com/arthurqueiroz4", "arthur.queiroz08@aluno.ifce.edu.br");
     }
 }
