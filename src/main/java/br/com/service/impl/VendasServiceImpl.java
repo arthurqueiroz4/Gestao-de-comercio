@@ -36,8 +36,7 @@ public class VendasServiceImpl implements VendasService {
                 .descricao(dto.getDescricao())
                 .codbarras(dto.getCodbarras())
                 .precoUnitario(dto.getPrecoUnitario())
-                .mercado(mercadoRepository.findById(dto.getId_mercado())
-                        .orElseThrow(()-> new NotFoundException("Mercado não encontrado.")))
+                .mercado(mercadoRepository.findByLogin(dto.getLogin()).get())
                 .quantidade(dto.getQuantidade())
                 .build();
         Vendas vendareturn = repositoryVendas.save(vendas);

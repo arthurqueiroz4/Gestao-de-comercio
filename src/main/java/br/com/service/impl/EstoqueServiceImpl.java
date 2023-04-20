@@ -120,11 +120,14 @@ public class EstoqueServiceImpl implements EstoqueService {
 
     @Override
     public void vender(ProdutoListDTO dto) {
+        Mercado mercado = repositoryMercado.findByLogin(dto.getLogin()).orElseThrow(
+                ()-> new NotFoundException("Mercado não encontrado")
+        );
         List<ProdutoQuantidadeBarrasDTO> list = dto.getList();
         for (ProdutoQuantidadeBarrasDTO produtoQuantidadeBarrasDTO : list) {
             Produto produto = repositoryProduto.encontrarPeloCodigoBarra(produtoQuantidadeBarrasDTO.getCodigoBarras())
                     .orElse(null);
-            Estoque estoque = repositoryEstoque.buscarEstoque(dto.getId_mercado(), produto.getId())
+            Estoque estoque = repositoryEstoque.buscarEstoque(mercado.getId(), produto.getId())
                     .orElse(null);
             estoque.setQuantidade(estoque.getQuantidade() - produtoQuantidadeBarrasDTO.getQuantidade());
             repositoryEstoque.save(estoque);
@@ -133,7 +136,7 @@ public class EstoqueServiceImpl implements EstoqueService {
                     .descricao(produto.getDescricao())
                     .codbarras(produto.getCod_barras())
                     .precoUnitario(estoque.getPrecoUnitario())
-                    .id_mercado(dto.getId_mercado())
+                    .login(mercado.getLogin())
                     .quantidade(produtoQuantidadeBarrasDTO.getQuantidade())
                     .build();
             vendasService.save(vendasDTO);
