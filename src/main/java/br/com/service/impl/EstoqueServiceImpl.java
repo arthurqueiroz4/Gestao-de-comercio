@@ -103,9 +103,12 @@ public class EstoqueServiceImpl implements EstoqueService {
 
     @Override
     public void verificarVenda(VendaProdutoDTO dto) {
+        Mercado mercado = repositoryMercado.findByLogin(dto.getLogin()).orElseThrow(
+                ()-> new NotFoundException("Mercado não encontrado")
+        );
         Produto produto = repositoryProduto.encontrarPeloCodigoBarra(dto.getCodigoBarras())
                 .orElseThrow(()->new NotFoundException("Código de barras "+dto.getCodigoBarras()+" não encontrado."));
-        Estoque estoque = repositoryEstoque.buscarEstoque(dto.getId_mercado(), produto.getId())
+        Estoque estoque = repositoryEstoque.buscarEstoque(mercado.getId(), produto.getId())
                 .orElseThrow(()->new NotFoundException("Código de barras "+dto.getCodigoBarras()+" não cadastrado no Estoque."));
         if (estoque.getQuantidade() == 0){
             throw new BadRequestException("Estoque de "+produto.getDescricao()+" zerado.");
