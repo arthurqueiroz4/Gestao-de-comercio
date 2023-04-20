@@ -151,7 +151,7 @@
            {
               "codigoBarras":"7891991010086",
                "quantidade":100,
-               "id_mercado":122
+               "login":"JAVA35"
            }
        ```
   - Retorno: ```204 - NO CONTENT```
@@ -160,7 +160,7 @@
   - Corpo json:
     - ```json
            {
-            "id_mercado":122,
+            "login":"JAVA35",
              "list":[
                 {
                    "codigoBarras":"7891991010086",
