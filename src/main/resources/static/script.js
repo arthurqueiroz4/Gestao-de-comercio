@@ -1,32 +1,31 @@
-const formu = document.getElementById("form1");
-let id_user;
+const form = document.querySelector('#form1');
+const button = document.querySelector('#button');
 
-formu.addEventListener('submit', event => {
-    event.preventDefault();
-    const formData = new FormData(formu);
-    const data = {
-        usuario: formData.get('usuario'),
-        senha: formData.get('senha')
-    };
-    console.log(data);
-    const idPromise = fetch("validarlogin", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-    .then(resp => {
-		console.log(resp.status)
-		if (resp.status==200){
-			console.log("Login validado");
-		} else if (resp.status==406){
-			throw new Error("Login invalido");
-		}
-		return resp.json()
-	})
-    .then(data => {
-		localStorage.setItem("id", JSON.stringify(data.idLogin))
-	})
-    .catch(error => console.error(error));
+button.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  const usuario = {
+    login: document.querySelector('#mercado').value,
+    senha: document.querySelector('#senha').value
+  };
+
+  fetch('/api/usuarios/auth', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(usuario)
+  })
+  .then(response => {
+    if (response.ok) {
+      // Sucesso na requisição
+      console.log('Login realizado com sucesso!');
+    } else {
+      // Erro na requisição
+      console.error('Erro ao realizar login.');
+    }
+  })
+  .catch(error => {
+    console.error('Erro ao realizar login: ' + error);
+  });
 });
