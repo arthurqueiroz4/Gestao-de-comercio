@@ -10,10 +10,9 @@ button.click(function(event) {
     senha: $('#senha').val(),
 	admin: false
   };
-
-  $.ajax({
+    $.ajax({
     url: '/api/usuarios',
-    type: 'POST',
+    type: 'PATCH',
     contentType: 'application/json',
     data: JSON.stringify(usuario),
     success: function(data) {

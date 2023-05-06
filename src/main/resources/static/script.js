@@ -9,6 +9,8 @@ button.click(function(event) {
     senha: $('#senha').val()
   };
 
+    console.log(usuario)
+
   $.ajax({
     url: '/api/usuarios/auth',
     type: 'POST',
@@ -19,8 +21,12 @@ button.click(function(event) {
       console.log(data)
     //   document.getElementById("").innerHTML = data;
         },
-    error: function() {
-      console.error('Erro ao realizar login.');
-    }
+    error: function(jqXHR) {
+                    var list = JSON.parse(jqXHR.responseText).errors
+                    var erro
+                    list.forEach(function(error) {
+                        console.log(error)
+                    })
+               }
   });
 });
