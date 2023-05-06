@@ -1,31 +1,25 @@
-const form = document.querySelector('#form1');
-const button = document.querySelector('#button');
+const form = $('#form1');
+const button = $('#button');
 
-button.addEventListener('click', (event) => {
+button.click(function(event) {
   event.preventDefault();
 
   const usuario = {
-    login: document.querySelector('#mercado').value,
-    senha: document.querySelector('#senha').value
+    login: $('#mercado').val(),
+    senha: $('#senha').val()
   };
 
-  fetch('/api/usuarios/auth', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(usuario)
-  })
-  .then(response => {
-    if (response.ok) {
-      // Sucesso na requisição
+  $.ajax({
+    url: '/api/usuarios/auth',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(usuario),
+    success: function(data) {
       console.log('Login realizado com sucesso!');
-    } else {
-      // Erro na requisição
+      console.log(data)
+          },
+    error: function() {
       console.error('Erro ao realizar login.');
     }
-  })
-  .catch(error => {
-    console.error('Erro ao realizar login: ' + error);
   });
 });
