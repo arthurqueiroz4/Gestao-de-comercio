@@ -17,7 +17,8 @@ button.click(function(event) {
     success: function(data) {
       console.log('Login realizado com sucesso!');
       console.log(data)
-          },
+    //   document.getElementById("").innerHTML = data;
+        },
     error: function() {
       console.error('Erro ao realizar login.');
     }
