@@ -12,19 +12,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body class="background ">
-    <div class="content container rounded-2 w-50">
+    <div class="content container rounded-2 ">
         <form action="" class="cadastro">
             <h1 class="display-4 text-center mb-5 text-responsive" id="title">ALTERAR SENHA</h1>
-            <div class="">
+            <div class="row">
+                <div >
+                    <input type="text" class="form-control mb-5" placeholder="CNPJ">
+                </div>    
                 <div class="col">
-                    <input type="text" name="usuario" class="form-control" placeholder="CNPJ">
+                    <input type="text"  class="form-control" placeholder="Usuário">
                 </div>
-                <div class="col mt-3" id="inputs">
-                    <input type="password" name="senha" class="form-control w-100 mt-4" placeholder="REDEFINIR SENHA">
-                    <input type="password" name="confirmation" class="form-control w-100 mt-4" placeholder="CONFIRMAR SENHA">
+                <div class="col">
+                    <input type="password"  class="form-control" placeholder="Senha">
                 </div>
-                <div class="d-flex justify-content-center mt-5">
-                    <button type="submit" class="btn btn-dark mt-3" id="button">ENTRAR</button>
+                <div class=" d-flex justify-content-center mt-5">
+                    <button type="submit" class="btn btn-dark" id="button">ENVIAR</button>
                 </div>
             </div>
         </form>
