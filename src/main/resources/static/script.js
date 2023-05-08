@@ -19,6 +19,7 @@ button.click(function(event) {
     success: function(data) {
       console.log('Login realizado com sucesso!');
       console.log(data)
+      window.location.href = "home/index.html";
     //   document.getElementById("").innerHTML = data;
         },
     error: function(jqXHR) {
