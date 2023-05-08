@@ -30,3 +30,6 @@ button.click(function(event) {
                }
   });
 });
+function home(){
+  window.location.href = "home/index.html";
+}
