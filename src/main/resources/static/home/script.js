@@ -17,9 +17,6 @@ function pegartoken(){
         success: function(data) {
           token = data.token;
           console.log(token)
-          console.log(JSON.stringify({
-                                              login: localStorage.getItem('login')
-                                          }))
            $.ajax({
                     url: '/api/vendas?login='+usuario.login,
                     type: 'GET',
@@ -28,7 +25,11 @@ function pegartoken(){
                       'Authorization': 'Bearer '+token
                     },
                     success: function(data) {
-                      console.log(data)
+
+                            $('#tabela > tbody > tr').remove()
+                            data.forEach(function(c) {
+                                       $('#tabela > tbody').append('<tr> <td>'+c.descricao+'</td> <td>'+c.codbarras+'</td> <td>'+c.precoUnitario+'</td> <td>'+c.quantidade+'</td> <td>'+c.date+'</td> </tr>')
+                            })
                         },
                     error: function(jqXHR) {
 //                                    var list = JSON.parse(jqXHR.responseText).errors

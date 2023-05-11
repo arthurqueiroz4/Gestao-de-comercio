@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 public class VendasRetornoDTO {
-    private LocalDateTime date;
+    private String date;
 
     private Integer quantidade;
 

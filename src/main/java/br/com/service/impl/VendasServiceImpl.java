@@ -9,6 +9,9 @@ import br.com.service.VendasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class VendasServiceImpl implements VendasService {
         List<VendasRetornoDTO> vendasRetornoDTO = new ArrayList<>();
         for (Vendas venda : vendas) {
             vendasRetornoDTO.add(VendasRetornoDTO.builder()
-                    .date(venda.getDate())
+                    .date(venda.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
                     .quantidade(venda.getQuantidade())
                     .precoUnitario(venda.getPrecoUnitario())
                     .descricao(venda.getDescricao())
