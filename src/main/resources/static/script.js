@@ -9,6 +9,9 @@ button.click(function(event) {
     senha: $('#senha').val()
   };
 
+  localStorage.setItem('login',  $('#mercado').val())
+  localStorage.setItem('senha',  $('#senha').val())
+
     console.log(usuario)
 
   $.ajax({
@@ -19,8 +22,7 @@ button.click(function(event) {
     success: function(data) {
       console.log('Login realizado com sucesso!');
       console.log(data)
-      window.location.href = "home/index.html";
-    //   document.getElementById("").innerHTML = data;
+        window.location.href = "home/index.html";
         },
     error: function(jqXHR) {
                     var list = JSON.parse(jqXHR.responseText).errors
@@ -31,6 +33,3 @@ button.click(function(event) {
                }
   });
 });
-function home(){
-  window.location.href = "home/index.html";
-}
