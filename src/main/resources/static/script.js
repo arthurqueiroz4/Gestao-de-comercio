@@ -44,10 +44,10 @@ button.click(function(event) {
         insereHTML('spanSenha', error, 'senha', aux[1], 'divSenha', usuario.senha)
         
         if(aux[1] == "não"){
-          document.getElementById('divSubmit').innerHTML = "<span id= 'spanSubmit'> " + error + "</span>"
+          document.getElementById('divMercado').innerHTML = "<span id= 'spanMercado'> " + error + "</span>"
         }
         if(aux[1] == "incorreta."){
-          document.getElementById('divSubmit').innerHTML = "<span id= 'spanSubmit'> " + error + "</span>"
+          document.getElementById('divSenha').innerHTML = "<span id= 'spanSenha'> " + error + "</span>"
         }
       })
 

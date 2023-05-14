@@ -39,7 +39,7 @@ button.click(function(event) {
         console.log(aux)
         cnpjsplit = usuario.cnpj.split("")
 
-        if(cnpjsplit.length == 14){
+        if(cnpjsplit.length == 14 && !isNaN(usuario.cnpj)){
           $("#spanCnpjErro").remove()
         }
         if(usuario.cnpj != ""){
@@ -62,7 +62,7 @@ button.click(function(event) {
         insereHTML("spanSenha", error, "senha", aux[1], 'divSenha', usuario.senha)
 
         if(aux[0] == "Mercado"){
-          document.getElementById('divSubmit').innerHTML = "<span id= 'spanSubmit'> " + error + "</span>"
+          document.getElementById('divMercado').innerHTML = "<span id= 'spanMercado'> " + error + "</span>"
         }
       })
     }
