@@ -16,14 +16,17 @@
         <form action="" class="cadastro">
             <h1 class="display-4 text-center mb-4 text-responsive" id="title">ENTRAR</h1>
             <div class="row justify-content-center">
-                <div class="row justify-content-center">
+                <div class=" justify-content-center">
                     <input id = "mercado" type="text" name="usuario" class="form-control" placeholder="Usuário">
+                    <div id = "divMercado"></div>
                 </div>
-                <div class="row mt-4 justify-content-center">
+                <div class=" mt-4 justify-content-center">
                     <input id = "senha" type="password"  name= "senha" class="form-control" placeholder="Senha">
+                    <div id = "divSenha"></div>
                 </div>
-                <div class="row d-flex justify-content-center mt-5">
-                    <button onclick="home()" type="submit" class="btn btn-dark" id="button">ENTRAR</button>
+                <div id = "divSubmit" class ="d-flex justify-content-center mt-5"></div>
+                <div class="row d-flex justify-content-center mt-3">
+                    <button type="submit" class="btn btn-dark" id="button">ENTRAR</button>
                 </div>
                 <p class="d-flex justify-content-center mt-3">Não tem conta?&nbsp;<a href="cadastro/index.html" class="">Cadastre-se</a></p>
                 <a href="recuperar_senha/index.html" class="d-flex justify-content-center ">Esqueceu a senha?</a>
