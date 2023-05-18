@@ -59,14 +59,49 @@
             </div>
         </div>
         </div>
+        
     </div>
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style = "height: 100%;">
+        <div class="modal-content" id="myModal">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            ...EDITAR
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalAdicionar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style = "height: 100%;">
+        <div class="modal-content" id="myModal">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            ...ADICIONAR
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>     
     <div class="container content table-back rounded h-50">
       <div class="container text-center">
       <div class="row">
       <h1  class="display-5 text-center mb-5">ESTOQUE</h1>
       </div>
       <div class="row table-responsive " id="scrollable">
-
+        <!--Tabela-->
         <table id="tabela" class="table  table-hover col rounded table-striped table-borderless ">
           <thead class="thead-dark">
             <tr>
@@ -117,12 +152,12 @@
             </button>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#modalEditar">
                 Editar Produto
             </button>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#modalAdicionar">
                 Adicionar Produto
             </button>
             </div>
