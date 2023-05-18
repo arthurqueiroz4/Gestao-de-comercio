@@ -177,14 +177,8 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h4>Vendas:</h4>
 
-- Listar vendas pelo Mercado: (GET - /api/vendas)
+- Listar vendas pelo Mercado: (GET - /api/vendas?login=***)
   - Funcionamento: ao passar o nome do Mercado é retornado todas as vendas daquele mercado.
-  - Corpo json:
-    - ```json
-            {
-              "login":"JAVA25"
-            }
-      ```
   - Retorno: ```200 - OK```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h4>Autorizações:</h4>

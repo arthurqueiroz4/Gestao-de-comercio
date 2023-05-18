@@ -66,10 +66,9 @@ button.click(function(event) {
     senha: $('#senha').val(),
     admin: false
   };
-
   $.ajax({
     url: '/api/usuarios',
-    type: 'POST',
+    type: 'PATCH',
     contentType: 'application/json',
     data: JSON.stringify(usuario),
     success: function(data) {
@@ -80,7 +79,7 @@ button.click(function(event) {
       console.log('Cadastro realizado com sucesso!')
       window.location.href = "/index.html"
     },
-		error: function(jqXHR) {
+    error: function(jqXHR) {
       var list = JSON.parse(jqXHR.responseText).errors
       list.forEach(function(error) {
         aux = error.split(' ')

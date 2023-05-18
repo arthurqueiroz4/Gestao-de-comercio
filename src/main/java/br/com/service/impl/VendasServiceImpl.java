@@ -1,24 +1,19 @@
 package br.com.service.impl;
 
 import br.com.domain.dto.*;
-import br.com.domain.entity.Estoque;
-import br.com.domain.entity.Mercado;
-import br.com.domain.entity.Produto;
 import br.com.domain.entity.Vendas;
-import br.com.domain.repository.EstoqueRepository;
 import br.com.domain.repository.MercadoRepository;
-import br.com.domain.repository.ProdutoRepository;
 import br.com.domain.repository.VendasRepository;
-import br.com.exception.BadRequestException;
 import br.com.exception.NotFoundException;
 import br.com.service.VendasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VendasServiceImpl implements VendasService {
@@ -44,15 +39,15 @@ public class VendasServiceImpl implements VendasService {
     }
 
     @Override
-    public List<VendasRetornoDTO> mostrar(MercadoDTO dto) {
+    public List<VendasRetornoDTO> mostrar(String login) {
 
         List<Vendas> vendas = repositoryVendas.findByMercado(mercadoRepository
-                .findByLogin(dto.getLogin())
+                .findByLogin(login)
                 .orElseThrow(()-> new NotFoundException("Mercado não encontrado")).getId());
         List<VendasRetornoDTO> vendasRetornoDTO = new ArrayList<>();
         for (Vendas venda : vendas) {
             vendasRetornoDTO.add(VendasRetornoDTO.builder()
-                    .date(venda.getDate())
+                    .date(venda.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
                     .quantidade(venda.getQuantidade())
                     .precoUnitario(venda.getPrecoUnitario())
                     .descricao(venda.getDescricao())

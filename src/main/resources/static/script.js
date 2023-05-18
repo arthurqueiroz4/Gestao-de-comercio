@@ -1,32 +1,57 @@
-const formu = document.getElementById("form1");
-let id_user;
+const form = $('#form1');
+const button = $('#button');
 
-formu.addEventListener('submit', event => {
-    event.preventDefault();
-    const formData = new FormData(formu);
-    const data = {
-        usuario: formData.get('usuario'),
-        senha: formData.get('senha')
-    };
-    console.log(data);
-    const idPromise = fetch("validarlogin", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-    .then(resp => {
-		console.log(resp.status)
-		if (resp.status==200){
-			console.log("Login validado");
-		} else if (resp.status==406){
-			throw new Error("Login invalido");
-		}
-		return resp.json()
-	})
-    .then(data => {
-		localStorage.setItem("id", JSON.stringify(data.idLogin))
-	})
-    .catch(error => console.error(error));
+function insereHTML(idSpan, erro, nomeAux, auxPosition, divId, chaveUsuario){
+  if(chaveUsuario != ""){
+    $("#"+idSpan).remove()
+  }
+  if(auxPosition == nomeAux){ 
+    document.getElementById(divId).innerHTML = "<span id= " + idSpan + ">" + erro + "</span>"
+  }
+}
+
+button.click(function(event) {
+  event.preventDefault();
+
+  const usuario = {
+    login: $('#mercado').val(),
+    senha: $('#senha').val()
+  };
+
+  localStorage.setItem('login',  $('#mercado').val())
+  localStorage.setItem('senha',  $('#senha').val())
+
+  // console.log(usuario)
+
+  $.ajax({
+    url: '/api/usuarios/auth',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(usuario),
+    success: function(data) {
+      $("#spanSenha").remove()
+      $("#spanMercado").remove()
+      $("#spanSubmit").remove()
+      console.log('Login realizado com sucesso!')
+      window.location.href = "home/index.html"
+    },
+    error: function(jqXHR) {
+      var list = JSON.parse(jqXHR.responseText).errors
+      list.forEach(function(error) {
+        aux = error.split(' ')
+        insereHTML('spanMercado', error, 'login', aux[1], 'divMercado', usuario.login)
+        
+        insereHTML('spanSenha', error, 'senha', aux[1], 'divSenha', usuario.senha)
+        
+        if(aux[1] == "não"){
+          document.getElementById('divMercado').innerHTML = "<span id= 'spanMercado'> " + error + "</span>"
+        }
+        if(aux[1] == "incorreta."){
+          document.getElementById('divSenha').innerHTML = "<span id= 'spanSenha'> " + error + "</span>"
+        }
+      })
+
+      
+    }
+  });
 });

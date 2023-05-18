@@ -8,7 +8,7 @@
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%);
-    /* width: 50%; */
+    width: 70%;
     height: 60%;
     justify-content: center;
     align-items: center;
@@ -19,11 +19,16 @@
 #title{
     color: #3c5665;
     font-family: 'Old Standard TT', serif;
+    font-size: max(50px, 4.1vw);
 } 
 #button{
-    width: 100%;
+    width: 50%;
     background-color: #3c5665;
 }
+#inputs{
+    width: 50%;
+}
+
 /* donau e blue fatface */
 /* color: #424530; backgroiund*/
 /* background-color: #ffefcd; content*/
