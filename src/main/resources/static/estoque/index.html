@@ -56,8 +56,8 @@
               <div class="container">
                 <form action="" method="get">
                   <div class="row">
-                    <input type="text" placeholder="Codigo de barras" class="form-control w-50">
-                    <button class=" btn btn-dark w-25" style=" width: 10%; margin-left: 10px; margin-right: 10%;" >Buscar</button>
+                    <input type="text" placeholder="Codigo de barras" id="pesquisarProduto"  class="form-control w-50">
+                    <button type="button" class=" btn btn-dark w-25" onclick="pesquisarProduto()" style=" width: 10%; margin-left: 10px; margin-right: 10%;" >Buscar</button>
                   </div>
                 </form>
               </div>
@@ -109,7 +109,7 @@
     </div>
 
       <!--CONTAINER PRINCIPAL-->
-    <div class="container content table-back rounded h-50">
+    <div class="container content table-back rounded">
       <div class="container text-center">
       <div class="row">
       <h1  class="display-5 text-center mb-5">ESTOQUE</h1>
@@ -127,43 +127,13 @@
             </tr>
           </thead>
           <tbody class="table-group-divider">
-            <tr>
-              <td>Product 1</td>
-              <td>123456789</td>
-              <td>$10.99</td>
-              <td>5</td>
-            </tr>
-            <tr>
-              <td>Product 2</td>
-              <td>987654321</td>
-              <td>$5.99</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Product 3</td>
-              <td>456789123</td>
-              <td>$7.50</td>
-              <td>2</td>
-            </tr>
-            <tr>
-                <td>Product 3</td>
-                <td>456789123</td>
-                <td>$7.50</td>
-                <td>2</td>
-              </tr>
-            <tr>
-                <td>Product 3</td>
-                <td>456789123</td>
-                <td>$7.50</td>
-                <td>2</td>
-            </tr>
 
           </tbody>
 
         </table>
     </fieldset>
       </div>
-      <div class="row mt-5">
+      <div class="row mt-3">
         <div class="col">
             <button type="button" id="EditarPesquisar" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Pesquisar Produto

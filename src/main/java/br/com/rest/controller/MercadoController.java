@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("**/api/usuarios")
 public class MercadoController {
 
     @Autowired

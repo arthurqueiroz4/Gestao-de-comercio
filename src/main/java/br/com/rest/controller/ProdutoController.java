@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/produtos")
+@RequestMapping("**/api/produtos")
 public class ProdutoController {
     @Autowired
     private ProdutoServiceImpl service;
@@ -50,7 +50,7 @@ public class ProdutoController {
         service.save(produtoEncontrado);
     }
 
-    @GetMapping("barras/{codigoBarras}")
+    @GetMapping("/barras/{codigoBarras}")
     public ProdutoDTO buscarPeloCodigo (@PathVariable("codigoBarras") String codigoBarras ){
         Produto produto = service.getByCode(codigoBarras);
         return ProdutoDTO.builder()
