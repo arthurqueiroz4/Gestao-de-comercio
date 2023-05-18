@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <title>ESTOQUE</title>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body class="background ">
+  <header>
+    <nav class="navbar header " id="bg">
+        <div class="container-fluid">
+            <div class="ms-1">
+                <a href="" class="nav-link d-inline fs-3">
+                  <img src="../home/assets/home.svg" alt="icone de casa" id="home-icon">
+                  HOME
+                </a>
+                <a href="" class="nav-link d-inline ms-3 fs-3 ">
+                  <img src="../home/assets/grocery_cart.svg" class="mb-2" alt="icone de carrinho de supermercado">
+                  VENDAS
+                </a>
+                <a href="" class="nav-link d-inline ms-3 fs-3 responsive-text" id="estoque">
+                  <img src="../home/assets/box.svg" class= "mb-2" alt="icone de caixa">
+                  ESTOQUE
+                </a>
+                
+            </div>
+            <div>
+              <a href="/logout">
+                <button class="btn btn-outline-danger">SAIR</button>
+              </a>
+            </div>
+        </div>    
+    </nav>
+    
+  </header>
+  <main>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style = "height: 100%;">
+        <div class="modal-content" id="myModal">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="container content table-back rounded h-50">
+      <div class="container text-center">
+      <div class="row">
+      <h1  class="display-5 text-center mb-5">ESTOQUE</h1>
+      </div>
+      <div class="row table-responsive " id="scrollable">
+
+        <table id="tabela" class="table  table-hover col rounded table-striped table-borderless ">
+          <thead class="thead-dark">
+            <tr>
+              <th>Produto</th>
+              <th>Código de barras</th>
+              <th>Preço unitário</th>
+              <th>Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product 1</td>
+              <td>123456789</td>
+              <td>$10.99</td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <td>Product 2</td>
+              <td>987654321</td>
+              <td>$5.99</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>Product 3</td>
+              <td>456789123</td>
+              <td>$7.50</td>
+              <td>2</td>
+            </tr>
+            <tr>
+                <td>Product 3</td>
+                <td>456789123</td>
+                <td>$7.50</td>
+                <td>2</td>
+              </tr>
+            <tr>
+                <td>Product 3</td>
+                <td>456789123</td>
+                <td>$7.50</td>
+                <td>2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mt-5">
+        <div class="col">
+            <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Pesquisar Produto
+            </button>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Editar Produto
+            </button>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Adicionar Produto
+            </button>
+            </div>
+      </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
