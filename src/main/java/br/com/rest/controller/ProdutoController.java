@@ -50,4 +50,13 @@ public class ProdutoController {
         service.save(produtoEncontrado);
     }
 
+    @GetMapping("barras/{codigoBarras}")
+    public ProdutoDTO buscarPeloCodigo (@PathVariable("codigoBarras") String codigoBarras ){
+        Produto produto = service.getByCode(codigoBarras);
+        return ProdutoDTO.builder()
+                .codig_barras(produto.getCod_barras())
+                .decricao(produto.getDescricao())
+                .build();
+    }
+
 }
