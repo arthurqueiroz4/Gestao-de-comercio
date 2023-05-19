@@ -166,3 +166,58 @@ function adicionarEstoque(){
         }
       });
 }
+
+function buscarProdutoEditar(){
+  const usuario = {
+    login: localStorage.getItem('login'),
+    senha: localStorage.getItem('senha')
+  };
+
+  const codigoBarras = $('#pesquisarProdutoEditar').val();
+    if (codigoBarras === ''){
+         const toastLiveExample = document.getElementById('liveToast')
+                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                    $('#toast-text').text('Código de barras não pode ser vazio')
+                        toastBootstrap.show()
+                        return 0;
+    }
+
+  $.ajax({
+    url: '/api/usuarios/auth',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(usuario),
+    success: function(data) {
+      var token = data.token;
+      const url = '/api/produtos/barras/'+codigoBarras;
+      $.ajax({
+        url: url,
+        type: 'GET',
+        contentType: 'application/json',
+        headers:{
+          'Authorization': 'Bearer '+token
+        },
+        success: function(data) {
+            /*Desbloquear os campos de input 'Quantidade' e 'Preco'*/
+            /*e guardo o produto*/
+            $('#descricaoEditar').val(data.decricao)
+            $('#codigoBarrasEditar').val(data.codig_barras)
+        },
+        error: function(jqXHR) {
+        var list = JSON.parse(jqXHR.responseText)
+        const toastLiveExample = document.getElementById('liveToast')
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            $('#toast-text').text('Código de barras não cadastrado. Cadastre o produto antes de adicioná-lo ao Estoque.')
+                toastBootstrap.show()
+
+        }
+      });
+    },
+    error: function(jqXHR) {
+      var list = JSON.parse(jqXHR.responseText).errors
+      list.forEach(function(error) {
+          console.log(error)
+      })
+    }
+  });
+}

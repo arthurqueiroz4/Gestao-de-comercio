@@ -114,14 +114,45 @@
     </div>
       <!--Modal EDITAR-->
     <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style = "height: 100%;">
-        <div class="modal-content" id="myModal">
+        <div class="modal-dialog modal-lg" style = "height: 100%;">
+        <div class="modal-content" id="myModalEditar">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabelEditar">Editar produto:</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            ...EDITAR
+                <div class="container">
+                    <form action="" method="get">
+                        <div class="row">
+                            <input type="text" placeholder="Código de barras" id="pesquisarProdutoEditar"  class="form-control w-50">
+                            <button type="button" class=" btn btn-dark w-25" onclick="buscarProdutoEditar()" style=" width: 10%; margin-left: 10px; margin-right: 10%;" >Buscar</button>
+                        </div>
+                    </form>
+                    <div class="row mt-3">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="descricaoEditar" class="form-label">Descrição:</label>
+                                    <input id="descricaoEditar" readonly="readonly" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <label for="codigoBarrasEditar" class="form-label">Código de barras:</label>
+                                    <input id="codigoBarrasEditar" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col">
+                                    <label for="quantidadeEditar" class="form-label">Quantidade:</label>
+                                    <input id="quantidadeEditar" class="form-control" type="number">
+                                </div>
+                                <div class="col">
+                                    <label for="precoUnitarioEditar" class="form-label">Preço unitário:</label>
+                                    <input id="precoUnitarioEditar" class="form-control" type="number">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
