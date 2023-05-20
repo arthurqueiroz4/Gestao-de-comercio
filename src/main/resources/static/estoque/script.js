@@ -1,14 +1,9 @@
-const myModal = document.getElementById('myModal')
-const myInput = document.getElementById('myInput')
 
-myModal.addEventListener('shown.bs.modal', () => {
-  myInput.focus()
-})
-
-function toastMessage(message){
-    const toastLiveExample = document.getElementById('liveToast')
+function toastMessage(message, idText, idToast){
+	console.log(message + " " + idText + " "+ idToast)
+    const toastLiveExample = document.getElementById(idToast)
                     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-                    $('#toast-text').text(message)
+                    $(idText).text(message)
                         toastBootstrap.show()
 }
 
@@ -20,13 +15,9 @@ function buscarProduto(){
 
   const codigoBarras = $('#pesquisarProduto').val();
     if (codigoBarras === ''){
-         const toastLiveExample = document.getElementById('liveToast')
-                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-                    $('#toast-text').text('Código de barras não pode ser vazio')
-                        toastBootstrap.show()
+         toastMessage('Código de barras não pode ser vazio.', '#toast-text', 'liveToast')
                         return 0;
     }
-
   $.ajax({
     url: '/api/usuarios/auth',
     type: 'POST',
@@ -43,8 +34,6 @@ function buscarProduto(){
           'Authorization': 'Bearer '+token
         },
         success: function(data) {
-            /*Desbloquear os campos de input 'Quantidade' e 'Preco'*/
-            /*e guardo o produto*/
             $('#descricao').val(data.decricao)
             $('#codigoBarras').val(data.codig_barras)
         },
@@ -54,7 +43,6 @@ function buscarProduto(){
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
             $('#toast-text').text('Código de barras não cadastrado. Cadastre o produto antes de adicioná-lo ao Estoque.')
                 toastBootstrap.show()
-
         }
       });
     },
@@ -121,7 +109,7 @@ function adicionarEstoque(){
       const precoUnitario = $('#precoUnitario').val()
       console.log(codigoBarras)
         if (codigoBarras === '' || quantidade == '' || precoUnitario == ''){
-             toastMessage('Preencha os campos corretamente.')
+             toastMessage('Preencha os campos corretamente.', '#toast-text', 'liveToast')
 
                             return 0;
         }
@@ -174,12 +162,11 @@ function buscarProdutoEditar(){
   };
 
   const codigoBarras = $('#pesquisarProdutoEditar').val();
+  console.log("Cod Barras: "+codigoBarras+".")
+  console.log(codigoBarras === '')
     if (codigoBarras === ''){
-         const toastLiveExample = document.getElementById('liveToast')
-                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-                    $('#toast-text').text('Código de barras não pode ser vazio')
-                        toastBootstrap.show()
-                        return 0;
+		toastMessage('Código de barras não pode ser vazio.', '#toast-text-editar', 'liveToastEditar')
+         return 0;
     }
 
   $.ajax({
@@ -189,26 +176,27 @@ function buscarProdutoEditar(){
     data: JSON.stringify(usuario),
     success: function(data) {
       var token = data.token;
-      const url = '/api/produtos/barras/'+codigoBarras;
       $.ajax({
-        url: url,
+        url: '/api/estoque?login='+usuario.login,
         type: 'GET',
         contentType: 'application/json',
         headers:{
           'Authorization': 'Bearer '+token
         },
         success: function(data) {
-            /*Desbloquear os campos de input 'Quantidade' e 'Preco'*/
-            /*e guardo o produto*/
-            $('#descricaoEditar').val(data.decricao)
-            $('#codigoBarrasEditar').val(data.codig_barras)
+			
+			data.forEach(function(retorno) {
+				if (retorno.codigoBarras == codigoBarras) {
+					$('#descricaoEditar').val(retorno.nomeProduto)
+					$('#codigoBarrasEditar').val(retorno.codigoBarras)
+				}else{
+					toastMessage('Produto não cadastrado no seu Estoque. Cadastre o produto para editá-lo.','#toast-text-editar','liveToastEditar')
+				}
+
+			})
         },
         error: function(jqXHR) {
         var list = JSON.parse(jqXHR.responseText)
-        const toastLiveExample = document.getElementById('liveToast')
-            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-            $('#toast-text').text('Código de barras não cadastrado. Cadastre o produto antes de adicioná-lo ao Estoque.')
-                toastBootstrap.show()
 
         }
       });
@@ -221,3 +209,62 @@ function buscarProdutoEditar(){
     }
   });
 }
+
+
+function editarProduto(){
+	const usuario = {
+		login: localStorage.getItem('login'),
+		senha: localStorage.getItem('senha')
+	};
+
+	const codigoBarras = $('#pesquisarProdutoEditar').val();
+	const quantidade = $('#quantidadeEditar').val()
+	const precoUnitario = $('#precoUnitarioEditar').val()
+	console.log(codigoBarras)
+	if (codigoBarras === '' || (quantidade == '' && precoUnitario == '')) {
+		toastMessage('Preencha os campos corretamente.', '#toast-text', 'liveToast')
+		console.log('parou')
+		return 0;
+	}
+
+	$.ajax({
+		url: '/api/usuarios/auth',
+		type: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify(usuario),
+		success: function(data) {
+			var token = data.token;
+			var data = {
+				codigoBarras: codigoBarras,
+				quantidade: quantidade,
+				precoUnitario: precoUnitario,
+				nomeMercado: usuario.login
+			}
+			$.ajax({
+				url: '/api/estoque',
+				type: 'PUT',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				headers: {
+					'Authorization': 'Bearer ' + token
+				},
+				success: function(data) {
+					preencherTabela()
+				},
+				error: function(jqXHR) {
+					var list = JSON.parse(jqXHR.responseText)
+					console.log(list)
+					toastMessage('Impossível fazer cadastrado desse produto no Estoque.')
+
+				}
+			});
+		},
+		error: function(jqXHR) {
+			var list = JSON.parse(jqXHR.responseText).errors
+			list.forEach(function(error) {
+				console.log(error)
+			})
+		}
+	});
+}
+
