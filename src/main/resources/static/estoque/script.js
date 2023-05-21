@@ -1,6 +1,5 @@
 
 function toastMessage(message, idText, idToast) {
-	console.log(message + " " + idText + " " + idToast)
 	const toastLiveExample = document.getElementById(idToast)
 	const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
 	$(idText).text(message)
@@ -136,6 +135,8 @@ function adicionarEstoque() {
 					'Authorization': 'Bearer ' + token
 				},
 				success: function(data) {
+					$('#precoUnitario').val("")
+					$('#quantidade').val("")
 					preencherTabela()
 				},
 				error: function(jqXHR) {
@@ -162,8 +163,6 @@ function buscarProdutoEditar() {
 	};
 
 	const codigoBarras = $('#pesquisarProdutoEditar').val();
-	console.log("Cod Barras: " + codigoBarras + ".")
-	console.log(codigoBarras === '')
 	if (codigoBarras === '') {
 		toastMessage('Código de barras não pode ser vazio.', '#toast-text-editar', 'liveToastEditar')
 		return 0;
@@ -184,16 +183,16 @@ function buscarProdutoEditar() {
 					'Authorization': 'Bearer ' + token
 				},
 				success: function(data) {
-
+					let exists;
 					data.forEach(function(retorno) {
 						if (retorno.codigoBarras == codigoBarras) {
 							$('#descricaoEditar').val(retorno.nomeProduto)
 							$('#codigoBarrasEditar').val(retorno.codigoBarras)
-						} else {
-							toastMessage('Produto não cadastrado no seu Estoque. Cadastre o produto para editá-lo.', '#toast-text-editar', 'liveToastEditar')
-						}
-
+						} 
 					})
+					if ($('#descricaoEditar').val() == '' ){
+						toastMessage('Produto não cadastrado no seu Estoque. Cadastre o produto para editá-lo.', '#toast-text-editar', 'liveToastEditar')
+					}
 				},
 				error: function(jqXHR) {
 					var list = JSON.parse(jqXHR.responseText)
@@ -223,7 +222,6 @@ function editarProduto() {
 	console.log(codigoBarras)
 	if (codigoBarras === '' || (quantidade == '' && precoUnitario == '')) {
 		toastMessage('Preencha os campos corretamente.', '#toast-text', 'liveToast')
-		console.log('parou')
 		return 0;
 	}
 
@@ -249,6 +247,10 @@ function editarProduto() {
 					'Authorization': 'Bearer ' + token
 				},
 				success: function(data) {
+					 $('#quantidadeEditar').val("")
+					 $('#precoUnitarioEditar').val("")
+					 $('#descricaoEditar').val("")
+					 $('#codigoBarrasEditar').val("")
 					preencherTabela()
 				},
 				error: function(jqXHR) {
