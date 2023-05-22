@@ -219,12 +219,13 @@
 				</div>
 				<div class="modal-content" id="myModal">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar produto:</h1>
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar
+							produto:</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-					
+
 						<div class="container">
 							<div class="row mt-3">
 								<form>
@@ -241,20 +242,23 @@
 								</form>
 							</div>
 						</div>
-					
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">Fechar</button>
-						<button type="button" onclick="adicionarProduto()" class="btn btn-primary">Salvar produto</button>
+						<button type="button" onclick="adicionarProduto()"
+							class="btn btn-primary">Salvar produto</button>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<!--CONTAINER PRINCIPAL-->
-		<div class="container content table-back rounded">
-			<div class="container text-center">
+		<div
+			class="d-flex justify-content-center align-items-center"
+			style="min-height: 100vh;">
+			<div class="container " style="background-color: #ffefcd;margin-top: 30px;">
 				<div class="row">
 					<h1 class="display-5 text-center mb-5">ESTOQUE</h1>
 				</div>
@@ -262,7 +266,7 @@
 					<!--Tabela-->
 					<fieldset>
 						<table id="tabela"
-							class="table  table-hover col rounded table-striped border-secondary">
+							class="table table-hover col rounded table-striped border-secondary">
 							<thead class="thead-dark">
 								<tr>
 									<th>Produto</th>
@@ -278,7 +282,7 @@
 						</table>
 					</fieldset>
 				</div>
-				<div class="row mt-3">
+				<div class="row mt-3 mb-3 text-center">
 					<div class="col">
 						<button type="button" id="EditarPesquisar"
 							class="btn btn-primary " data-bs-toggle="modal"
@@ -295,6 +299,7 @@
 							Adicionar Produto</button>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 
