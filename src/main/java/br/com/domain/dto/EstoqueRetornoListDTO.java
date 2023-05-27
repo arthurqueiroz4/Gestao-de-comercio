@@ -11,5 +11,6 @@ public class EstoqueRetornoListDTO {
     private String nomeProduto;
     private Double precoUnitario;
     private Integer quantidade;
+    private String codigoBarras;
 }
 

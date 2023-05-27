@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/produtos")
+@RequestMapping("**/api/produtos")
 public class ProdutoController {
     @Autowired
     private ProdutoServiceImpl service;
@@ -48,6 +48,15 @@ public class ProdutoController {
         Produto produtoEncontrado = service.getByCode(atualizaNomeDTO.getCodigoBarras());
         produtoEncontrado.setDescricao(atualizaNomeDTO.getNovoNome());
         service.save(produtoEncontrado);
+    }
+
+    @GetMapping("/barras/{codigoBarras}")
+    public ProdutoDTO buscarPeloCodigo (@PathVariable("codigoBarras") String codigoBarras ){
+        Produto produto = service.getByCode(codigoBarras);
+        return ProdutoDTO.builder()
+                .codig_barras(produto.getCod_barras())
+                .decricao(produto.getDescricao())
+                .build();
     }
 
 }

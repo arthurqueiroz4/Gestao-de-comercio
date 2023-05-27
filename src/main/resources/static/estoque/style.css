@@ -35,6 +35,7 @@
     height: 60%;
     justify-content: center;
     align-items: center;
+    background-color: #ffefcd;
     /* border-radius: 2%; */
     
 }
@@ -45,4 +46,22 @@
     max-height: 300px; 
     overflow-y: scroll;
 }
+#myModal{
+    background-color: #ffefcd;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
 
+#myModalPesquisar{
+    background-color: #ffefcd;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#myModalEditar{
+    background-color: #ffefcd;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

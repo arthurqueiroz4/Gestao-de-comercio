@@ -1,3 +1,7 @@
+*{
+    font-family: "Montserrat", sans-serif;
+}
+
 .background{
     background-color: #3c5665; 
 }
@@ -17,7 +21,6 @@
 }
 #title{
     color: #3c5665;
-    font-family: 'Old Standard TT', serif;
     font-size: max(30px, 4vw);
 } 
 #button{
