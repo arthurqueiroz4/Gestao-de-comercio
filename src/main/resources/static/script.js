@@ -1,3 +1,4 @@
+
 const form = $('#form1');
 const button = $('#button');
 
@@ -34,6 +35,7 @@ button.click(function(event) {
       $("#spanSubmit").remove()
       console.log('Login realizado com sucesso!')
       window.location.href = "home/index.html"
+      localStorage.setItem('token', data.token)
     },
     error: function(jqXHR) {
       var list = JSON.parse(jqXHR.responseText).errors
