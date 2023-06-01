@@ -42,8 +42,15 @@ public class EstoqueController {
 
     @GetMapping("/verificar")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void verificar(@RequestBody @Valid VendaProdutoDTO dto){
-        service.verificarVenda(dto);
+    public void verificar(@RequestParam("codigoBarras") String codigoBarras,
+                        @RequestParam("quantidade") Integer quantidade,
+                        @RequestParam("login") String login){
+        
+        service.verificarVenda(VendaProdutoDTO.builder()
+                                .codigoBarras(codigoBarras)
+                                .login(login)
+                                .quantidade(quantidade)
+                                .build());
     }
 
     @GetMapping("/vender")
@@ -78,4 +85,9 @@ public class EstoqueController {
         service.deleteByName(dto.getLogin());
     }
 
+    @GetMapping("/produto")
+    public EstoqueRetornoListDTO getByProduto(@RequestParam("codigo") String codigoBarras,
+                                            @RequestParam("mercado") String mercado){
+        return service.getByCode(codigoBarras, mercado);
+    }
 }

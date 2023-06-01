@@ -1,5 +1,6 @@
 package br.com.domain.repository;
 
+import br.com.domain.dto.EstoqueRetornoDTO;
 import br.com.domain.entity.Estoque;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,4 +32,8 @@ public interface EstoqueRepository extends JpaRepository<Estoque, Integer> {
 
     @Query(value = "select e from Estoque e where e.mercado.login = ?1")
     Optional<Estoque> buscarPeloMercado(String login);
+
+    @Query(value = "select e from Estoque e where e.produto.cod_barras = :codigoBarras "+
+        "and e.mercado.login = :mercado")
+    Optional<Estoque> buscarProdutoNoEstoque(String codigoBarras, String mercado);
 }
