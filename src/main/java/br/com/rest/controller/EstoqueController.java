@@ -53,7 +53,7 @@ public class EstoqueController {
                                 .build());
     }
 
-    @GetMapping("/vender")
+    @PostMapping("/vender")
     @ResponseStatus(HttpStatus.OK)
     public void vender(@RequestBody @Valid ProdutoListDTO dto){
         service.vender(dto);
