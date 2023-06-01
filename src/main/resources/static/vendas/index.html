@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+<title>Vendas</title>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet" href="style.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+	crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+	rel="stylesheet">
+
+</head>
+
+<body class="background ">
+	<header>
+
+		<nav class="navbar header " id="bg">
+			<div class="container-fluid">
+				<div class="ms-1">
+					<a href="../home/index.html" class="nav-link d-inline fs-3"> <img
+						src="../home/assets/home.svg" alt="icone de casa" id="home-icon">
+						HOME
+					</a> <a href="" class="nav-link d-inline ms-3 fs-3 "> <img
+						src="../home/assets/grocery_cart.svg" class="mb-2"
+						alt="icone de carrinho de supermercado"> VENDAS
+					</a> <a href="../estoque/index.html"
+						class="nav-link d-inline ms-3 fs-3 responsive-text" id="estoque">
+						<img src="../home/assets/box.svg" class="mb-2"
+						alt="icone de caixa"> ESTOQUE
+					</a>
+
+				</div>
+				<div>
+					<a href="/logout">
+						<button class="btn btn-outline-danger">SAIR</button>
+					</a>
+				</div>
+			</div>
+		</nav>
+
+	</header>
+	<main>
+
+		<!--Modal PESQUISAR-->
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" style="height: 100%;">
+				<div class="toast-container position-fixed top-0 end-0 p-3 me-2">
+					<div id="liveToast" class="toast bg-danger" role="alert"
+						aria-live="assertive" aria-atomic="true">
+						<div class="toast-body">
+							<p id="toast-text"></p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-content" id="myModalPesquisar">
+
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Pesquisar
+							produto:</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<form action="" method="get">
+								<form action="" method="get">
+									<div class="row">
+										<div class="col">
+											<input type="text" placeholder="Código de barras"
+												id="pesquisarProduto" class="form-control">
+										</div>
+										<div class="col">
+											<button type="button" class=" btn btn-dark w-25"
+												onclick="buscarProduto()"
+												style="width: 10%; margin-left: 10px; margin-right: 10%;">Buscar</button>
+										</div>
+
+									</div>
+								</form>
+							</form>
+							<div class="row mt-3">
+								<form>
+									<div class="row">
+										<div class="col">
+											<label for="descricao" class="form-label">Descrição:</label>
+											<input id="descricao" readonly="readonly"
+												class="form-control">
+										</div>
+										<div class="col">
+											<label for="codigoBarras" class="form-label">Código
+												de barras:</label> <input id="codigoBarras" readonly="readonly"
+												class="form-control">
+										</div>
+									</div>
+									<div class="row mt-1">
+										<div class="col">
+											<label for="quantidade" class="form-label">Quantidade:</label>
+											<input id="quantidade" class="form-control" type="number">
+										</div>
+										<div class="col">
+											<label for="precoUnitario" class="form-label">Preço
+												unitário:</label> <input id="precoUnitario" class="form-control"
+												type="number">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Fechar</button>
+						<button type="button" onclick="adicionarEstoque()"
+							class="btn btn-primary"> <img src="assets/basket.svg" alt="" class="mb-1">&nbsp Adicionar no seu Carrinho </button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!--Modal EDITAR-->
+		<!-- <div class="modal fade" id="modalEditar" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" style="height: 100%;">
+				<div class="toast-container position-fixed top-0 end-0 p-3 me-2">
+					<div id="liveToastEditar" class="toast bg-danger" role="alert"
+						aria-live="assertive" aria-atomic="true">
+						<div class="toast-body">
+							<p id="toast-text-editar"></p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-content" id="myModalEditar">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabelEditar">Editar
+							produto:</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<form action="" method="get">
+								<div class="row">
+									<div class="col">
+										<input type="text" placeholder="Código de barras"
+											id="pesquisarProdutoEditar" class="form-control">
+									</div>
+									<div class="col">
+										<button type="button" class=" btn btn-dark w-25"
+											onclick="buscarProdutoEditar()"
+											style="width: 10%; margin-left: 10px; margin-right: 10%;">Buscar</button>
+									</div>
+
+								</div>
+							</form>
+							<div class="row mt-3">
+								<form>
+									<div class="row">
+										<div class="col">
+											<label for="descricaoEditar" class="form-label">Descrição:</label>
+											<input id="descricaoEditar" readonly="readonly"
+												class="form-control">
+										</div>
+										<div class="col">
+											<label for="codigoBarrasEditar" class="form-label">Código
+												de barras:</label> <input id="codigoBarrasEditar"
+												readonly="readonly" class="form-control">
+										</div>
+									</div>
+									<div class="row mt-1">
+										<div class="col">
+											<label for="quantidadeEditar" class="form-label">Quantidade:</label>
+											<input id="quantidadeEditar" class="form-control"
+												type="number">
+										</div>
+										<div class="col">
+											<label for="precoUnitarioEditar" class="form-label">Preço
+												unitário:</label> <input id="precoUnitarioEditar"
+												class="form-control" type="number">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Fechar</button>
+						<button type="button" onclick="editarProduto()"
+							class="btn btn-primary">Editar</button>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		<!--Modal ADICIONAR-->
+		<!-- <div class="modal fade" id="modalAdicionar" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" style="height: 100%;">
+				<div class="toast-container position-fixed top-0 end-0 p-3 me-2">
+					<div id="liveToastAdd" class="toast bg-danger" role="alert"
+						aria-live="assertive" aria-atomic="true">
+						<div class="toast-body">
+							<p id="toast-text-add"></p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-content" id="myModal">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar
+							produto:</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+
+						<div class="container">
+							<div class="row mt-3">
+								<form>
+									<div class="row">
+										<div class="col">
+											<label for="descricaoAdd" class="form-label">Descrição:</label>
+											<input id="descricaoAdd" class="form-control">
+										</div>
+										<div class="col">
+											<label for="codigoBarrasAdd" class="form-label">Código
+												de barras:</label> <input id="codigoBarrasAdd" class="form-control">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Fechar</button>
+						<button type="button" onclick="adicionarProduto()"
+							class="btn btn-primary">Salvar produto</button>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+		<!--CONTAINER PRINCIPAL-->
+		<div
+			class="d-flex justify-content-center align-items-center"
+			style="min-height: 100vh;">
+			<div class="container " style="background-color: #ffefcd;margin-top: 30px;">
+				<div class="row">
+					<h1 class="display-5 text-center mb-5">VENDAS</h1>
+				</div>
+				<div class="row table-responsive" id="scrollable">
+					<!--Tabela-->
+					<fieldset>
+						<table id="tabela"
+							class="table table-hover col rounded table-striped border-secondary">
+							<thead class="thead-dark">
+								<tr>
+									<th>Produto</th>
+									<th>Código de barras</th>
+									<th>Preço unitário</th>
+									<th>Quantidade</th>
+								</tr>
+							</thead>
+							<tbody class="table-group-divider">
+
+							</tbody>
+
+						</table>
+					</fieldset>
+				</div>
+				<div class="row mt-3 mb-3 text-center">
+					<div class="col">
+						<button type="button" id="EditarPesquisar"
+							class="btn btn-primary " data-bs-toggle="modal"
+							data-bs-target="#exampleModal " >Pesquisar Produto</button>
+					</div>
+					<div class="col">
+						<button type="button" id="EditarPesquisar"
+							class="btn btn-primary btn-danger" data-bs-toggle="modal"
+							data-bs-target="#modalEditar" >Cancelar</button>
+					</div>
+					<div class="col">
+						<button type="button" class="btn btn-success "
+							data-bs-toggle="modal" data-bs-target="#modalAdicionar">
+							Vender</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+	</main>
+	<footer> </footer>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+		crossorigin="anonymous">
+		
+	</script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+		integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+		crossorigin="anonymous">
+		
+	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+*{
+    font-family: "Montserrat", sans-serif;
+}
+.header{
+    box-shadow: 0px 4px 4px 0px #00000040;
+
+}
+#caixa{
+    color: black;
+}
+#estoque{
+    color: black;
+}
+.icon{
+    margin-bottom: 1.5%;
+}
+.background{
+    background-color: #3c5665;
+    
+}
+#bg{
+    background-color: #ffefcd;
+    
+}
+#home-icon{
+    margin-bottom: 2.3%;
+}
+.content{
+    display: flex;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 60%;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffefcd;
+    /* border-radius: 2%; */
+    
+}
+.table-back{
+    background-color: #ffefcd;
+}
+#scrollable{
+    max-height: 300px; 
+    overflow-y: scroll;
+}
+#myModal{
+    background-color: #ffefcd;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
+
+#myModalPesquisar{
+    background-color: #ffefcd;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#myModalEditar{
+    background-color: #ffefcd;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
