@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head>
-<title>Vendas</title>
+<title>VENDAS</title>
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -108,12 +108,12 @@
 									<div class="row mt-1">
 										<div class="col">
 											<label for="quantidade" class="form-label">Quantidade:</label>
-											<input id="quantidade" class="form-control" type="number">
+											<input id="quantidade" class="form-control">
 										</div>
 										<div class="col">
 											<label for="precoUnitario" class="form-label">Preço
 												unitário:</label> <input id="precoUnitario" class="form-control"
-												type="number">
+												readonly="readonly">
 										</div>
 									</div>
 								</form>
@@ -124,7 +124,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">Fechar</button>
-						<button type="button" onclick="adicionarEstoque()"
+						<button type="button" onclick="adicionarCarrinho()" 
 							class="btn btn-primary"> <img src="assets/basket.svg" alt="" class="mb-1">&nbsp Adicionar no seu Carrinho </button>
 					</div>
 				</div>
@@ -258,9 +258,9 @@
 		<div
 			class="d-flex justify-content-center align-items-center"
 			style="min-height: 100vh;">
-			<div class="container " style="background-color: #ffefcd;margin-top: 30px;">
+			<div class="container rounded-3 m-3" style="background-color: #ffefcd;margin-top: 30px;">
 				<div class="row">
-					<h1 class="display-5 text-center mb-5">VENDAS</h1>
+					<h1 class="display-5 text-center mt-2 mb-5">VENDAS</h1>
 				</div>
 				<div class="row table-responsive" id="scrollable">
 					<!--Tabela-->
@@ -286,16 +286,16 @@
 					<div class="col">
 						<button type="button" id="EditarPesquisar"
 							class="btn btn-primary " data-bs-toggle="modal"
-							data-bs-target="#exampleModal " >Pesquisar Produto</button>
+							data-bs-target="#exampleModal " ><img src="assets/basket.svg" alt="" class="mb-1">&nbsp Adicionar no seu Carrinho</button>
 					</div>
 					<div class="col">
 						<button type="button" id="EditarPesquisar"
 							class="btn btn-primary btn-danger" data-bs-toggle="modal"
-							data-bs-target="#modalEditar" >Cancelar</button>
+							data-bs-target="#modalEditar" onclick="cancelar()" >Cancelar</button>
 					</div>
 					<div class="col">
 						<button type="button" class="btn btn-success "
-							data-bs-toggle="modal" data-bs-target="#modalAdicionar">
+							data-bs-toggle="modal" data-bs-target="#modalAdicionar" onclick="vender()">
 							Vender</button>
 					</div>
 				</div>

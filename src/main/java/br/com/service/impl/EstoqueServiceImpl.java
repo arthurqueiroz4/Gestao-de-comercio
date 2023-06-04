@@ -163,6 +163,19 @@ public class EstoqueServiceImpl implements EstoqueService {
         );
     }
 
+
+    public EstoqueRetornoListDTO getByCode(String codigoBarras, String mercado) {
+        Estoque estoque = repositoryEstoque.buscarProdutoNoEstoque(codigoBarras, mercado)
+                                .orElseThrow(() -> new NotFoundException("Produto não cadastrado no seu Estoque."));
+        
+        return EstoqueRetornoListDTO.builder()
+                                    .codigoBarras(estoque.getProduto().getCod_barras())
+                                    .quantidade(estoque.getQuantidade())
+                                    .nomeProduto(estoque.getProduto().getDescricao())
+                                    .precoUnitario(estoque.getPrecoUnitario())
+                                    .build();
+    }
+
 }
 
 //    @Override
