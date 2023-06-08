@@ -76,14 +76,14 @@ button.click(function(event) {
       $("#spanCnpj").remove()
       $("#spanMercado").remove()
       $("#spanSubmit").remove()
-      console.log('Cadastro realizado com sucesso!')
+      
       window.location.href = "/index.html"
     },
     error: function(jqXHR) {
       var list = JSON.parse(jqXHR.responseText).errors
       list.forEach(function(error) {
         aux = error.split(' ')
-        console.log(aux)
+        
         cnpjsplit = usuario.cnpj.split("")
 
         if(usuario.cnpj != ""){

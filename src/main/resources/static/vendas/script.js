@@ -3,9 +3,9 @@ var produto;
 
 function insertTable(listProduto){
     $('#tabela > tbody > tr').remove()
-			listProduto.forEach(function(c) {
-				$('#tabela > tbody').append('<tr> <td>' + c.descricao + '</td> <td>' + c.codigoBarras + '</td> <td>' + c.precoUnitario + '</td> <td>' + c.quantidade + '</td></tr>')
-			})
+    listProduto.forEach(function(c) {
+        $('#tabela > tbody').append('<tr> <td>' + c.descricao + '</td> <td>' + c.codigoBarras + '</td> <td>' + c.precoUnitario + '</td> <td>' + c.quantidade + '</td></tr>')
+    })
 }
 
 function toastMessage(message, idText, idToast) {
@@ -18,7 +18,7 @@ function toastMessage(message, idText, idToast) {
 function buscarProduto(){
     const codigoBarra = $('#pesquisarProduto').val();
     if(codigoBarra == ""){
-        toastMessage("insira um codigo de barras válido!", '#toast-text', 'liveToast')  
+        toastMessage("Código de barras não pode ser vazio!", '#toast-text', 'liveToast')  
         return 0;
     }
     $.ajax({
@@ -35,10 +35,10 @@ function buscarProduto(){
             $("#quantidade").attr("placeholder", "Digite a quantidade a ser vendida")
         },
         error: function(jqXHR) {
-          var list = JSON.parse(jqXHR.responseText)
-                if(list.status == 403) {
-                    window.location.href = "../index.html";
-                }
+            var list = JSON.parse(jqXHR.responseText)
+            if(list.status == 403) {
+                window.location.href = "../index.html";
+            }
         }
       });
 }
@@ -64,19 +64,28 @@ function adicionarCarrinho(){
                 precoUnitario : $("#precoUnitario").val(),
                 quantidade : $("#quantidade").val()
             };
-            listProduto.push(produto);
-            console.log(listProduto)
-            insertTable(listProduto)
-            fechar()
-            $("#exampleModal").modal('hide');
-
+            var possui = false;
+            
+            listProduto.forEach(function(produto1){
+                if(produto1.codigoBarras === produto.codigoBarras){
+                    possui = true;
+                } 
+            })
+            if(!possui){
+                listProduto.push(produto);
+                insertTable(listProduto);
+                fechar()
+                $("#exampleModal").modal('hide');
+            } else{
+                toastMessage("Produto já está no carrinho!", '#toast-text', 'liveToast')
+            }
         },
         error: function(jqXHR) {
             var list = JSON.parse(jqXHR.responseText).errors
             if(list.status == 403) {
                 window.location.href = "../index.html";
             }
-            console.log(list)
+           
             toastMessage(list[0], '#toast-text', 'liveToast')  
             
         }
@@ -122,7 +131,7 @@ function vender(){
         "login" : localStorage.getItem("login"),
         "list" : listRequest
     }
-    console.log(JSON.stringify(data))
+    
     
     $.ajax({
         url: '/api/estoque/vender',
@@ -136,14 +145,13 @@ function vender(){
             window.location.href = "../home/index.html"
         },
         error: function(jqXHR) {
-          var list = JSON.parse(jqXHR.responseText).errors
-                if(list.status == 403) {
-                    window.location.href = "../index.html";
-                }
-                toastMessage('Impossível fazer a venda desse produto.', '#toast-text1', 'liveToast1')
-            list.array.forEach(element => {
-                console.log(element)
-            });
+            var list = JSON.parse(jqXHR.responseText).errors
+            if(list.status == 403) {
+                window.location.href = "../index.html";
+            }
+            
+            toastMessage('Adicione produtos antes de vender!', '#toast-text1', 'liveToast1')
+            
         }
       });
 }
