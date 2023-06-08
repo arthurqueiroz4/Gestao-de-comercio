@@ -17,6 +17,10 @@ function toastMessage(message, idText, idToast) {
 
 function buscarProduto(){
     const codigoBarra = $('#pesquisarProduto').val();
+    if(codigoBarra == ""){
+        toastMessage("insira um codigo de barras válido!", '#toast-text', 'liveToast')  
+        return 0;
+    }
     $.ajax({
         url: '/api/estoque/produto?codigo='+codigoBarra+'&mercado='+localStorage.getItem("login"),
         type: 'GET',
@@ -44,8 +48,8 @@ function adicionarCarrinho(){
         codigoBarras : $("#codigoBarras").val(),
         quantidade : Number($("#quantidade").val()),
     }
-    console.log(JSON.stringify(data))
-    $.ajax({
+    if($("#descricao").val()!= "" && $("#quantidade").val()!= "" && $("#quantidade").val() > 0){
+        $.ajax({
         url: '/api/estoque/verificar?codigoBarras='+$("#codigoBarras").val()+
         '&quantidade='+Number($("#quantidade").val())+'&login='+localStorage.getItem("login"),
         type: 'GET',
@@ -62,22 +66,43 @@ function adicionarCarrinho(){
             };
             listProduto.push(produto);
             console.log(listProduto)
-
             insertTable(listProduto)
+            fechar()
+            $("#exampleModal").modal('hide');
+
         },
         error: function(jqXHR) {
-          var list = JSON.parse(jqXHR.responseText).errors
-                if(list.status == 403) {
-                    window.location.href = "../index.html";
-                }
-                toastMessage('Impossível fazer a venda desse produto.', '#toast-text', 'liveToast')
-            list.array.forEach(element => {
-                console.log(element)
-            });
+            var list = JSON.parse(jqXHR.responseText).errors
+            if(list.status == 403) {
+                window.location.href = "../index.html";
+            }
+            console.log(list)
+            toastMessage(list[0], '#toast-text', 'liveToast')  
+            
         }
       });
+    }
+    else{
+        if($("#pesquisarProduto").val() == ""){
+            toastMessage("Não há produto indicado!", '#toast-text', 'liveToast')
+        }
+        else if($("#quantidade").val() == ""){
+            toastMessage("Não há quantidade indicada!", '#toast-text', 'liveToast')
+        }
+        else if($("#quantidade").val() <= 0){
+            toastMessage("Insira a quantidade correta!", '#toast-text', 'liveToast')
+        }
+    }
+    
+    
 }
-
+function fechar(){
+    $("#descricao").val("")
+    $("#precoUnitario").val("")
+    $("#quantidade").val("")
+    $("#codigoBarras").val("")
+    $("#pesquisarProduto").val("")
+}
 function cancelar(){
     $('#tabela > tbody > tr').remove()
     listProduto.splice(0, listProduto.length)
@@ -98,6 +123,7 @@ function vender(){
         "list" : listRequest
     }
     console.log(JSON.stringify(data))
+    
     $.ajax({
         url: '/api/estoque/vender',
         type: 'POST',
@@ -107,14 +133,14 @@ function vender(){
         },
         data: JSON.stringify(data),
         success: function(data) {
-            
+            window.location.href = "../home/index.html"
         },
         error: function(jqXHR) {
           var list = JSON.parse(jqXHR.responseText).errors
                 if(list.status == 403) {
                     window.location.href = "../index.html";
                 }
-                toastMessage('Impossível fazer a venda desse produto.', '#toast-text', 'liveToast')
+                toastMessage('Impossível fazer a venda desse produto.', '#toast-text1', 'liveToast1')
             list.array.forEach(element => {
                 console.log(element)
             });
