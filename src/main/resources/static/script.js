@@ -22,8 +22,7 @@ button.click(function(event) {
   localStorage.setItem('login',  $('#mercado').val())
   localStorage.setItem('senha',  $('#senha').val())
 
-  // console.log(usuario)
-
+  
   $.ajax({
     url: '/api/usuarios/auth',
     type: 'POST',
@@ -33,7 +32,7 @@ button.click(function(event) {
       $("#spanSenha").remove()
       $("#spanMercado").remove()
       $("#spanSubmit").remove()
-      console.log('Login realizado com sucesso!')
+      
       window.location.href = "home/index.html"
       localStorage.setItem('token', data.token)
     },

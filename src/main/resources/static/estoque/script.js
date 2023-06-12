@@ -19,6 +19,7 @@ function buscarProduto() {
 		toastMessage('Código de barras não pode ser vazio.', '#toast-text', 'liveToast')
 		return 0;
 	}
+	
 	const url = '/api/produtos/barras/' + codigoBarras;
 	$.ajax({
 		url: url,
@@ -75,18 +76,22 @@ function adicionarEstoque() {
 	const codigoBarras = $('#codigoBarras').val();
 	const quantidade = $('#quantidade').val()
 	const precoUnitario = $('#precoUnitario').val()
-	if (codigoBarras === '' || quantidade == '' || precoUnitario == '') {
-		toastMessage('Preencha os campos corretamente.', '#toast-text', 'liveToast')
+	if (codigoBarras === '') {
+		toastMessage('Pesquise o produto antes de adicionar!', '#toast-text', 'liveToast')
 
 		return 0;
 	}
+
 	var data = {
 		codigoBarras: codigoBarras,
 		quantidade: quantidade,
 		precoUnitario: precoUnitario,
 		nomeMercado: usuario.login
 	}
-	
+	if($("#quantidade").val() == "" || $("#precoUnitario").val() == ""){
+		toastMessage('Insira a quantidade e o preço unitário!', '#toast-text', 'liveToast')
+		return 0;
+	}
 	$.ajax({
 		url: '/api/estoque',
 		type: 'POST',
@@ -96,7 +101,6 @@ function adicionarEstoque() {
 			'Authorization': 'Bearer ' + token
 		},
 		success: function(data) {
-			console.log(data)
 			$('#precoUnitario').val("")
 			$('#quantidade').val("")
 			preencherTabela()
@@ -104,7 +108,7 @@ function adicionarEstoque() {
 		error: function(jqXHR) {
 
 			var list = JSON.parse(jqXHR.responseText)
-			console.log(list)
+			
 			toastMessage('Impossível fazer cadastro desse produto no Estoque.', '#toast-text', 'liveToast')
 
 		}
@@ -148,17 +152,18 @@ function editarProduto() {
 	const codigoBarras = $('#codigoBarrasEditar').val();
 	const quantidade = $('#quantidadeEditar').val()
 	const precoUnitario = $('#precoUnitarioEditar').val()
-	console.log(codigoBarras)
-	if (codigoBarras === '' || (quantidade == '' && precoUnitario == '')) {
-		toastMessage('Preencha os campos corretamente.', '#toast-text', 'liveToast')
+	if (codigoBarras === '') {
+		toastMessage('Pesquise o produto antes de editar!', '#toast-text-editar', 'liveToastEditar')
 		return 0;
 	}
-
 	var data = {
 		codigoBarras: codigoBarras,
 		quantidade: quantidade,
 		precoUnitario: precoUnitario,
 		nomeMercado: usuario.login
+	}
+	if($("#quantidadeEditar").val() == "" && $("#precoUnitarioEditar").val() == ""){
+		toastMessage('Insira quantidade ou preço!', '#toast-text-editar', 'liveToastEditar')
 	}
 	$.ajax({
 		url: '/api/estoque',
@@ -169,15 +174,15 @@ function editarProduto() {
 			'Authorization': 'Bearer ' + token
 		},
 		success: function(data) {
-			 $('#quantidadeEditar').val("")
-			 $('#precoUnitarioEditar').val("")
-			 $('#descricaoEditar').val("")
-			 $('#codigoBarrasEditar').val("")
+			$('#quantidadeEditar').val("")
+			$('#precoUnitarioEditar').val("")
+			$('#descricaoEditar').val("")
+			$('#codigoBarrasEditar').val("")
 			preencherTabela()
 		},
 		error: function(jqXHR) {
 			var list = JSON.parse(jqXHR.responseText)
-			console.log(list)
+			
 			toastMessage('Impossível fazer cadastrado desse produto no Estoque.')
 
 		}
@@ -210,16 +215,32 @@ function adicionarProduto() {
 
 			$('#descricaoAdd').val("")
 			$('#codigoBarrasAdd').val("")
-
+			$("#modalAdicionar").modal('hide');
 		},
 		error: function(jqXHR) {
 			var list = JSON.parse(jqXHR.responseText).errors
-			list.forEach(function(error) {
-				console.log(error)
-			})
+			
 			toastMessage('Impossível salvar produto.', '#toast-text-add', 'liveToastAdd')
 		}
 	});
+}
+function fecharEditar(){
+	$('#quantidadeEditar').val("")
+	$('#precoUnitarioEditar').val("")
+	$('#descricaoEditar').val("")
+	$('#codigoBarrasEditar').val("")
+	$("#pesquisarProdutoEditar").val("")
+}
+function fecharEstoque(){
+	$("#pesquisarProduto").val("")
+	$("#descricao").val("")
+	$("#codigoBarras").val("")
+	$("#quantidade").val("")
+	$("#precoUnitario").val("")
+}
+function fecharAdd(){
+	$("#descricaoAdd").val("")
+	$("#codigoBarrasAdd").val("")
 }
 function sair(){
 	$.ajax({

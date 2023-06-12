@@ -52,7 +52,14 @@
 
 	</header>
 	<main>
-
+		<div class="toast-container position-fixed top-0 end-0 p-3 me-2">
+			<div id="liveToast1" class="toast bg-danger" role="alert"
+				aria-live="assertive" aria-atomic="true">
+				<div class="toast-body">
+					<p id="toast-text1"></p>
+				</div>
+			</div>
+		</div>
 		<!--Modal PESQUISAR-->
 		<div class="modal fade" id="exampleModal" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,9 +90,9 @@
 												id="pesquisarProduto" class="form-control">
 										</div>
 										<div class="col">
-											<button type="button" class=" btn btn-dark w-25"
+											<button type="button" class=" btn btn-dark w-50"
 												onclick="buscarProduto()"
-												style="width: 10%; margin-left: 10px; margin-right: 10%;">Buscar</button>
+												>Buscar</button>
 										</div>
 
 									</div>
@@ -123,7 +130,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">Fechar</button>
+							data-bs-dismiss="modal" onclick="fechar()">Fechar</button>
 						<button type="button" onclick="adicionarCarrinho()" 
 							class="btn btn-primary"> <img src="assets/basket.svg" alt="" class="mb-1">&nbsp Adicionar no seu Carrinho </button>
 					</div>
