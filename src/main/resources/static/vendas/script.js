@@ -82,7 +82,8 @@ function adicionarCarrinho(){
         },
         error: function(jqXHR) {
             var list = JSON.parse(jqXHR.responseText).errors
-            if(list.status == 403) {
+            var list1 = JSON.parse(jqXHR.responseText)
+            if(list1.status == 403) {
                 window.location.href = "../index.html";
             }
            
@@ -113,8 +114,14 @@ function fechar(){
     $("#pesquisarProduto").val("")
 }
 function cancelar(){
-    $('#tabela > tbody > tr').remove()
-    listProduto.splice(0, listProduto.length)
+    var elemento = document.querySelector('#tabela > tbody > tr');
+    if(elemento){
+        $('#tabela > tbody > tr').remove()
+        listProduto.splice(0, listProduto.length)  
+    }else{
+        toastMessage('Não há produtos para cancelar a venda!', '#toast-text1', 'liveToast1')
+    }
+    
 }
 
 function vender(){
@@ -145,7 +152,7 @@ function vender(){
             window.location.href = "../home/index.html"
         },
         error: function(jqXHR) {
-            var list = JSON.parse(jqXHR.responseText).errors
+            var list = JSON.parse(jqXHR.responseText)
             if(list.status == 403) {
                 window.location.href = "../index.html";
             }
