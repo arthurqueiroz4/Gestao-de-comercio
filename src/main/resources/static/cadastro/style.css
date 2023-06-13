@@ -20,7 +20,7 @@
     background-color: #ffefcd;
 }
 #title{
-    color: #3c5665;
+    /* color: #3c5665; */
     font-size: max(30px, 4vw);
 } 
 #button{
