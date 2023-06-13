@@ -39,6 +39,7 @@ function buscarProduto(){
             if(list.status == 403) {
                 window.location.href = "../index.html";
             }
+            toastMessage('Produto não cadastrado no seu Estoque. Cadastre o produto para poder adicionar ao carrinho!', '#toast-text', 'liveToast')
         }
       });
 }
@@ -74,7 +75,6 @@ function adicionarCarrinho(){
             if(!possui){
                 listProduto.push(produto);
                 insertTable(listProduto);
-                fechar()
                 $("#exampleModal").modal('hide');
             } else{
                 toastMessage("Produto já está no carrinho!", '#toast-text', 'liveToast')
@@ -155,3 +155,8 @@ function vender(){
         }
       });
 }
+
+var meuModal = document.getElementById("exampleModal");
+meuModal.addEventListener("hidden.bs.modal", function (event) {
+  fechar();
+});

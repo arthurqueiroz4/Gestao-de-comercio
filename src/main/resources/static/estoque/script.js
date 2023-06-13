@@ -37,10 +37,7 @@ function buscarProduto() {
 			// if(list.status == 403) {
 			// 	window.location.href = "../index.html";
 			// }
-			const toastLiveExample = document.getElementById('liveToast')
-			const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-			$('#toast-text').text('Código de barras não cadastrado. Cadastre o produto antes de adicioná-lo ao Estoque.')
-			toastBootstrap.show()
+			toastMessage('Código de barras não cadastrado. Cadastre o produto antes de adicioná-lo ao Estoque.', '#toast-text', 'liveToast')
 		}
 	});
 }
@@ -71,7 +68,7 @@ function preencherTabela() {
 }
 
 preencherTabela();
-
+// modal de pesquisar produto
 function adicionarEstoque() {
 	const codigoBarras = $('#codigoBarras').val();
 	const quantidade = $('#quantidade').val()
@@ -92,6 +89,10 @@ function adicionarEstoque() {
 		toastMessage('Insira a quantidade e o preço unitário!', '#toast-text', 'liveToast')
 		return 0;
 	}
+	if($("#quantidade").val() < 0 || $("#precoUnitario").val() < 0){
+		toastMessage('Insira a quantidade e o preço unitário com valores positivos!', '#toast-text', 'liveToast')
+		return 0;
+	}
 	$.ajax({
 		url: '/api/estoque',
 		type: 'POST',
@@ -101,8 +102,7 @@ function adicionarEstoque() {
 			'Authorization': 'Bearer ' + token
 		},
 		success: function(data) {
-			$('#precoUnitario').val("")
-			$('#quantidade').val("")
+			$("#exampleModal").modal('hide')
 			preencherTabela()
 		},
 		error: function(jqXHR) {
@@ -142,12 +142,12 @@ function buscarProdutoEditar() {
 		},
 		error: function(jqXHR) {
 			var list = JSON.parse(jqXHR.responseText)
-
+			toastMessage('Produto não cadastrado no seu Estoque. Cadastre o produto para editá-lo.', '#toast-text-editar', 'liveToastEditar')
 		}
 	});
 }
 
-
+// modal de editar produto
 function editarProduto() {
 	const codigoBarras = $('#codigoBarrasEditar').val();
 	const quantidade = $('#quantidadeEditar').val()
@@ -165,6 +165,10 @@ function editarProduto() {
 	if($("#quantidadeEditar").val() == "" && $("#precoUnitarioEditar").val() == ""){
 		toastMessage('Insira quantidade ou preço!', '#toast-text-editar', 'liveToastEditar')
 	}
+	if($("#quantidadeEditar").val() < 0 || $("#precoUnitarioEditar").val() < 0){
+		toastMessage('Insira a quantidade e o preço unitário com valores positivos!', '#toast-text-editar', 'liveToastEditar')
+		return 0;
+	}
 	$.ajax({
 		url: '/api/estoque',
 		type: 'PUT',
@@ -174,10 +178,7 @@ function editarProduto() {
 			'Authorization': 'Bearer ' + token
 		},
 		success: function(data) {
-			$('#quantidadeEditar').val("")
-			$('#precoUnitarioEditar').val("")
-			$('#descricaoEditar').val("")
-			$('#codigoBarrasEditar').val("")
+			$("#modalEditar").modal('hide');
 			preencherTabela()
 		},
 		error: function(jqXHR) {
@@ -188,7 +189,7 @@ function editarProduto() {
 		}
 	});
 }
-
+// modal de add produto
 function adicionarProduto() {
 	
 	const codigoBarras = $('#codigoBarrasAdd').val();
@@ -212,9 +213,6 @@ function adicionarProduto() {
 			'Authorization': 'Bearer ' + token
 		},
 		success: function(data) {
-
-			$('#descricaoAdd').val("")
-			$('#codigoBarrasAdd').val("")
 			$("#modalAdicionar").modal('hide');
 		},
 		error: function(jqXHR) {
@@ -251,4 +249,19 @@ function sair(){
 		localStorage.removeItem("token")
 	  }
 	});
-  }
+}
+
+var meuModal1 = document.getElementById("exampleModal");
+meuModal1.addEventListener("hidden.bs.modal", function (event) {
+	fecharEstoque()
+});
+
+var meuModal2 = document.getElementById("modalEditar");
+meuModal2.addEventListener("hidden.bs.modal", function (event) {
+	fecharEditar()
+});
+
+var meuModal3 = document.getElementById("modalAdicionar");
+meuModal3.addEventListener("hidden.bs.modal", function (event) {
+	fecharAdd()
+});
