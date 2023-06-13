@@ -33,10 +33,10 @@ function buscarProduto() {
 			$('#codigoBarras').val(data.codig_barras)
 		},
 		error: function(jqXHR) {
-			// var list = JSON.parse(jqXHR.responseText)
-			// if(list.status == 403) {
-			// 	window.location.href = "../index.html";
-			// }
+			var list = JSON.parse(jqXHR.responseText)
+			if(list.status == 403) {
+                window.location.href = "../index.html";
+            }
 			toastMessage('Código de barras não cadastrado. Cadastre o produto antes de adicioná-lo ao Estoque.', '#toast-text', 'liveToast')
 		}
 	});
@@ -108,6 +108,9 @@ function adicionarEstoque() {
 		error: function(jqXHR) {
 
 			var list = JSON.parse(jqXHR.responseText)
+			if(list.status == 403) {
+                window.location.href = "../index.html";
+            }
 			
 			toastMessage('Impossível fazer cadastro desse produto no Estoque.', '#toast-text', 'liveToast')
 
@@ -142,6 +145,9 @@ function buscarProdutoEditar() {
 		},
 		error: function(jqXHR) {
 			var list = JSON.parse(jqXHR.responseText)
+			if(list.status == 403) {
+                window.location.href = "../index.html";
+            }
 			toastMessage('Produto não cadastrado no seu Estoque. Cadastre o produto para editá-lo.', '#toast-text-editar', 'liveToastEditar')
 		}
 	});
@@ -183,7 +189,9 @@ function editarProduto() {
 		},
 		error: function(jqXHR) {
 			var list = JSON.parse(jqXHR.responseText)
-			
+			if(list.status == 403) {
+                window.location.href = "../index.html";
+            }
 			toastMessage('Impossível fazer cadastrado desse produto no Estoque.')
 
 		}
@@ -216,8 +224,10 @@ function adicionarProduto() {
 			$("#modalAdicionar").modal('hide');
 		},
 		error: function(jqXHR) {
-			var list = JSON.parse(jqXHR.responseText).errors
-			
+			var list = JSON.parse(jqXHR.responseText)
+			if(list.status == 403) {
+                window.location.href = "../index.html";
+            }
 			toastMessage('Impossível salvar produto.', '#toast-text-add', 'liveToastAdd')
 		}
 	});
